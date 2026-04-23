@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Sqli-labs靶场搭建</title>
+      <link href="/archives/6d6b02d2.html"/>
+      <url>/archives/6d6b02d2.html</url>
+      
+        <content type="html"><![CDATA[<hr><h1 id="Sqli-labs靶场介绍"><a href="#Sqli-labs靶场介绍" class="headerlink" title="Sqli-labs靶场介绍"></a>Sqli-labs靶场介绍</h1><p>针对Sql注入学习需要大量的训练，直接在互联网上找对新手太不友好，因此，一般会在本地搭建一个供Sql注入的测试网站。</p><p>Sqli-labs项目地址—Github获取：<a href="https://github.com/Audi-1/sqli-labs">https://github.com/Audi-1/sqli-labs</a></p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423143046583.png"></p><h1 id="Sqli-labs环境安装"><a href="#Sqli-labs环境安装" class="headerlink" title="Sqli-labs环境安装"></a>Sqli-labs环境安装</h1><h2 id="运行环境安装"><a href="#运行环境安装" class="headerlink" title="运行环境安装"></a>运行环境安装</h2><p>Sqli-labs安装需要apache + mysql + php环境，推荐使用phpstudy</p><p>下载地址：<a href="https://www.xp.cn/">https://www.xp.cn/</a></p><p>安装之前确保本地没有下载，或已停用本地mysql</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423143532118.png"></p><p>安装一直下一步就可以了</p><h2 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h2><p>安装好，启动apache和mysql服务</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423144154159.png"></p><p><strong>注意：phpstudy自带的php版本比较高，不兼容sqli-labs靶场中的php版本，需要手动更改为低版本</strong></p><p>点击 软件管理 &gt; php &gt; 选择php5.4.45 点击安装</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423144725158.png"></p><p>点击 网站 &gt; 管理 &gt; php版本</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423145115199.png"></p><p><strong>如果后续不能正常使用，再更换其他低版本，多试几次即可</strong></p><h2 id="靶场搭建"><a href="#靶场搭建" class="headerlink" title="靶场搭建"></a>靶场搭建</h2><p>sqli-labs下载解压后，放入phpstudy安装路径的www文件夹中</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423145316527.png"></p><p>sqli-labs访问需要连接数据库，需要设置sqli-labs文件中的sql-connections</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423145643174.png"></p><p>进入sql-connections，修改db-creds文件，phpstudy默认账号和密码均为root</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423145823414.png"></p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423145850774.png"></p><h2 id="网站独立"><a href="#网站独立" class="headerlink" title="网站独立"></a>网站独立</h2><p>建议创建独立网站管理，防止后续网站靶场过多，php版本混乱</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423150536407.png"></p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423150604118.png"></p><p>保存后访问网页，点击<font color="Red">Swtup&#x2F;reset Database for labs</font></p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423151009030.png"></p><p>见到如下界面即为安装成功</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423151036150.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web安全·Sql注入渗透与攻防 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络安全·Web安全 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Sql注入先行</title>
       <link href="/archives/ed3813fa.html"/>
       <url>/archives/ed3813fa.html</url>

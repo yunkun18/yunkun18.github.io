@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>综合靶场安装教程</title>
+      <link href="/archives/141bca4c.html"/>
+      <url>/archives/141bca4c.html</url>
+      
+        <content type="html"><![CDATA[<hr><h1 id="Phpstudy安装"><a href="#Phpstudy安装" class="headerlink" title="Phpstudy安装"></a>Phpstudy安装</h1><p>Phpstudy集成了Apache、FTP、MySQL、Nginx，可谓非常好用</p><p>下载地址：<a href="https://www.xp.cn/">https://www.xp.cn/</a></p><p>安装之前确保本地没有下载，或已停用本地MySQL</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423143532118.png"></p><p>安装一直下一步就可以了</p><p>安装完启动后，这样就成功了</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426030148035.png"></p><h1 id="pikachu靶场安装"><a href="#pikachu靶场安装" class="headerlink" title="pikachu靶场安装"></a>pikachu靶场安装</h1><h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><p>pikachu是一个综合靶场，有很多不同类型的漏洞关卡，<a href="https://github.com/zhuifengshaonianhanlu/pikachu">点击下载</a></p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426030521332.png"></p><p>将源码放到Phpstudy的WWW目录下</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426031015148.png"></p><h2 id="创建网站"><a href="#创建网站" class="headerlink" title="创建网站"></a>创建网站</h2><p>回到Phpstudy，启动Apache和MySQL</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426033714180.png"></p><p>在网站页面，点击创建网站</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426031119860.png"></p><p>添加如下信息并确认</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426031252019.png"></p><h2 id="修改数据库配置文件"><a href="#修改数据库配置文件" class="headerlink" title="修改数据库配置文件"></a>修改数据库配置文件</h2><p>修改pikachu\inc\config.inc.php文件，更改连接数据库的DBUSER和DBPW，DBNAME随意</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426031552404.png"></p><h2 id="网站初始化"><a href="#网站初始化" class="headerlink" title="网站初始化"></a>网站初始化</h2><p>打开首页，<a href="http://localhost/pikachu">http://localhost/pikachu</a> ，点击”安装&#x2F;初始化”初始化数据库</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426031900283.png"></p><p>初始化成功</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426031934123.png"></p><h2 id="pkxss后台搭建"><a href="#pkxss后台搭建" class="headerlink" title="pkxss后台搭建"></a>pkxss后台搭建</h2><p>pikachu自带了一个XSS后台，需要配置数据库</p><p>配置文件WWW\pikachu\pkxss\inc\config.inc.php</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426032529180.png"></p><p>从网站菜单左下角进入</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426032625749.png"></p><p>点击初始化安装</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426032651180.png"></p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426032753172.png"></p><p>使用admin&#x2F;123456登录</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426032901590.png"></p><h1 id="DVWA靶场安装"><a href="#DVWA靶场安装" class="headerlink" title="DVWA靶场安装"></a>DVWA靶场安装</h1><h2 id="下载源码-1"><a href="#下载源码-1" class="headerlink" title="下载源码"></a>下载源码</h2><p>DVWA为综合靶场，有很多不同类型的漏洞关卡，<a href="https://github.com/digininja/DVWA">点击下载</a></p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426033405876.png"></p><p>将源码放到WWW目录下</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426033841180.png"></p><h2 id="创建网站-1"><a href="#创建网站-1" class="headerlink" title="创建网站"></a>创建网站</h2><p>回到Phpstudy，启动Apache和MySQL</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426033714180.png"></p><p>点击网站，创建网站，添加数据，点击确认</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426033942740.png"></p><h2 id="修改数据库配置文件-1"><a href="#修改数据库配置文件-1" class="headerlink" title="修改数据库配置文件"></a>修改数据库配置文件</h2><p>修改WWW\DVWA\config\config.inc.php文件</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426034501164.png"></p><h2 id="网站初始化-1"><a href="#网站初始化-1" class="headerlink" title="网站初始化"></a>网站初始化</h2><p>打开首页，<a href="http://localhost/DVWA/">http://localhost/DVWA/</a> ，点击Setup&#x2F;Reset DB，然后点击Create&#x2F;Reset Database</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426034922980.png"></p><p>页面最下端出现如下信息</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426035334812.png"></p><h2 id="PHP配置修改"><a href="#PHP配置修改" class="headerlink" title="PHP配置修改"></a>PHP配置修改</h2><p>当前php版本为7.3.4</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426035627324.png"></p><p>那么phpstudy_pro\Extensions\php\php7.3.4nts\php.ini配置文件中，以下两个值要改成On</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426035740548.png"></p><p>然后就能正常登录了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web安全·综合靶场 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络安全·Web安全·综合靶场 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Python基础语法与数据类型</title>
       <link href="/archives/582b0737.html"/>
       <url>/archives/582b0737.html</url>

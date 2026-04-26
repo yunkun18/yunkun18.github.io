@@ -4,6 +4,81 @@
   
     
     <entry>
+      <title>浏览器常用插件合集</title>
+      <link href="/archives/9508da4a.html"/>
+      <url>/archives/9508da4a.html</url>
+      
+        <content type="html"><![CDATA[<hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web安全·浏览器插件 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络安全·Web安全 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>BurpSuite安装和使用</title>
+      <link href="/archives/f39b7ce2.html"/>
+      <url>/archives/f39b7ce2.html</url>
+      
+        <content type="html"><![CDATA[<hr><h1 id="Burp-Suite-基本介绍"><a href="#Burp-Suite-基本介绍" class="headerlink" title="Burp Suite 基本介绍"></a>Burp Suite 基本介绍</h1><p>官网：<a href="https://portswigger.net/">https://portswigger.net/</a></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">主要功能：</span><br><span class="line"></span><br><span class="line">    目标：测试网站安全</span><br><span class="line"></span><br><span class="line">    手段：抓HTTP包，改HTTP包，自动请求，过滤响应</span><br><span class="line"></span><br><span class="line">    场景：SQL注入、文件上传、XSS、CSRF、FUZZ、重放攻击、密码爆破、数据爬取、漏洞扫描等</span><br></pre></td></tr></table></figure><p>Burp Suite 属于自动化的集成工具，且拥有极强的可扩展性，可以安装很多实用的插件</p><h1 id="Burp-Suite-版本选择"><a href="#Burp-Suite-版本选择" class="headerlink" title="Burp Suite 版本选择"></a>Burp Suite 版本选择</h1><p>推荐Burp Suite Professional 2021+的jar包版本，下载地址：<a href="https://portswigger.net/burp/releases">https://portswigger.net/burp/releases</a> </p><p>Burp Suite运行需要JRE环境，推荐解压版，不会破环电脑中原有的java环境，我用的为2021版本，需要jdk11版本</p><p>下载地址：<a href="https://repo.huaweicloud.com/java/jdk/">https://repo.huaweicloud.com/java/jdk/</a></p><p>众所周知的原因，需要<a href="https://github.com/h3110w0r1d-y/BurpLoaderKeygen/releases">激活器</a>，想要汉化的还有<a href="https://github.com/h3110w0r1d-y/BurpLoaderKeygen/releases/download/2.0/BurpLoaderKeygenCn.jar">汉化包</a>可自行下载，但是不推荐汉化</p><p>也可以直接下载这个，已经打包好的文件：通过网盘分享的文件：Burp-2021.12<br>链接: <a href="https://pan.baidu.com/s/1ArBCcAoHHzlCyuYee6OBNA?pwd=1818">https://pan.baidu.com/s/1ArBCcAoHHzlCyuYee6OBNA?pwd=1818</a> 提取码: 1818</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426203842608.png"></p><h1 id="Burp-Suite-激活"><a href="#Burp-Suite-激活" class="headerlink" title="Burp Suite 激活"></a>Burp Suite 激活</h1><p>因为JDK版本问题，Burp Suite的启动也比较麻烦。所以我在目录下创建了一个名为burp_start.bat的文件，内容为：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">cmd /k &quot;start jdk-11.0.11\bin\java -jar BurpLoaderKeygen.jar&quot;</span><br></pre></td></tr></table></figure><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426204253282.png"></p><p>使用指定版本的JDK启动激活器，然后双击打开burp_start.bat</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426204751808.png"></p><p>如果没弹出这样的窗口，那就将config.cfg文件删除再重新运行burp_start.bat</p><p>Auto run为下次是否再开启这个界面，Ignore Update为忽略更新，建议两个都勾选，license Text可以改成喜欢的名字</p><p>将License内容复制下来，点击run</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426205202864.png"></p><p>在新窗口，粘贴刚复制的内容，点击Next</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426205509288.png"></p><p>点击Manual activation</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426205618495.png"></p><p>点击Copy request</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426205720360.png"></p><p>先别关，回到刚才的页面，复制到Activation Request中，会自动生成Activation Response，复制下来，粘贴回去</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426210037240.png"></p><p>点击Next，就成功了</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426210133249.png"></p><p>双击burp_start.bat就能启动了，但是会有一个黑框一起启动，可以关，但是麻烦也不美观</p><p>创建了一个BurpSuiteLoader.vbs文件，内容为：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set ws=WScript.CreateObject(&quot;WScript.Shell&quot;)</span><br><span class="line">ws.Run &quot;burp_start.bat&quot;,0</span><br></pre></td></tr></table></figure><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260427012512523.png"></p><p>直接启动BurpSuiteLoader.vbs就不会有黑框了</p><p>现在这样还是很丑，我下载了一个图标，favicon.ico</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260427015823816.png"></p><p>右击BurpSuiteLoader.vbs发送到桌面快捷方式</p><p>然后右击快捷方式，选择属性，点击更改图标</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260427020145385.png"></p><p>在浏览中找到刚才的favicon.ico，然后确定就行了，上边是换过的，好看多了</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260427020414842.png"></p><h1 id="Burp-Suite-Proxy模块"><a href="#Burp-Suite-Proxy模块" class="headerlink" title="Burp Suite Proxy模块"></a>Burp Suite Proxy模块</h1><p>Proxy就是代理，网络代理可以突破IP限制，隐藏IP和加速访问</p><p>Burp的Proxy模块可以拦截HTTP(S)请求，并对请求和响应进行处理和利用</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260427025932093.png"></p><p>当Burp开启时，会自动监听8080端口</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260427034314633.png"></p><p>选项功能</p><p><strong><font color='Blue'>Intercept</font></strong></p><table><thead><tr><th>操作</th><th>描述</th></tr></thead><tbody><tr><td>Forward</td><td>放行本次拦截的包，发送到服务器</td></tr><tr><td>Drop</td><td>丢弃本次拦截的包</td></tr><tr><td>on&#x2F;off</td><td>拦截开关</td></tr><tr><td>Action</td><td>对数据的操作</td></tr><tr><td>Open in Browser</td><td>打开内置浏览器</td></tr></tbody></table><p><strong><font color='Blue'>Options选项（详细设置）</font></strong></p><table><thead><tr><th>操作</th><th>描述</th></tr></thead><tbody><tr><td>Proxy Listeners</td><td>监听器</td></tr><tr><td>Intercept Client Requests</td><td>请求拦截规则</td></tr><tr><td>Intercept Server Response</td><td>响应拦截规则</td></tr><tr><td>Response Modification</td><td>响应结果修改</td></tr><tr><td>Match and Replace</td><td>匹配和替换</td></tr><tr><td>TLS Pass Through</td><td>TLS穿透</td></tr><tr><td>Miscellaneous</td><td>杂项</td></tr></tbody></table><p>点击Intercept is off 变为Intercept is on</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260427034600365.png"></p><p>点击Open Browser，打开内置浏览器，输入网址便能开始进行请求拦截与数据包修改</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260427034144873.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web安全·安全工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络安全·Web安全 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Sql注入之数据类型和提交方式</title>
+      <link href="/archives/ceaf3645.html"/>
+      <url>/archives/ceaf3645.html</url>
+      
+        <content type="html"><![CDATA[<hr><h1 id="Sql注入的数据类型"><a href="#Sql注入的数据类型" class="headerlink" title="Sql注入的数据类型"></a>Sql注入的数据类型</h1><h2 id="数字型注入点"><a href="#数字型注入点" class="headerlink" title="数字型注入点"></a>数字型注入点</h2><p>很多网页链接有类似结构，例如sqli-labs第二关：<a href="http://localhost/sqli-labs/Less-2/?id=1">http://localhost/sqli-labs/Less-2/?id=1</a> ，一般被叫做数字型注入点</p><p>其注入点id类型为数字，大多数网页中，查看个人信息，查看文章，都会用到这种结构进行信息传递</p><p>后台SQL语句大概为</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from 表名 where id=$id             # $id为占位，拼接前台id字段传递的数据</span><br></pre></td></tr></table></figure><p>根据之前的实践，我们判断注入点会进行语句拼接,如下</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">url拼接</span><br><span class="line">http://localhost/sqli-labs/Less-2/?id=1 and 1=1 --+          # &#x27;--+&#x27;为注释，将后续Sql语句注释掉，也可以用&#x27;#&#x27;</span><br><span class="line">http://localhost/sqli-labs/Less-2/?id=1 and 1=2 --+</span><br><span class="line"></span><br><span class="line">后台SQL语句</span><br><span class="line">select * from 表名 where id=1 and 1=1 --+ LIMIT 0,1</span><br><span class="line">select * from 表名 where id=1 and 1=2 --+ LIMIT 0,1</span><br></pre></td></tr></table></figure><p>通过不同的页面反馈，判断存在注入点</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423184355253.png"></p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426153439079.png"></p><h2 id="字符型注入点"><a href="#字符型注入点" class="headerlink" title="字符型注入点"></a>字符型注入点</h2><p>很多网页链接有类似结构，<a href="http://xxx.com/users.php?name=admin">http://xxx.com/users.php?name=admin</a> ,一般叫做字符型注入点</p><p>其注入点name类型为字符型，后台语句为：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from 表名 where name=&#x27;$name&#x27;</span><br></pre></td></tr></table></figure><p>语句被引号包裹，在Sql语句中可以是单引号也可以是双引号，证明接收字符串类型的数据</p><p>进行语句拼接，也要将引号进行拼接，以sqli-labs第一关为例</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">url拼接</span><br><span class="line">http://localhost/sqli-labs/Less-1/?id=1&#x27; and 1=1 --+</span><br><span class="line">http://localhost/sqli-labs/Less-1/?id=1&#x27; and 1=2 --+</span><br><span class="line"></span><br><span class="line">后台SQL语句</span><br><span class="line">select * from 表名 where id=&#x27;1&#x27; and 1=1 --+ LIMIT 0,1</span><br><span class="line">select * from 表名 where id=&#x27;1&#x27; and 1=2 --+ LIMIT 0,1</span><br></pre></td></tr></table></figure><p>通过不同的页面反馈，判断存在注入点</p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426155838791.png"></p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426155903134.png"></p><p>我们之前提到过可以随意拼接字符，报错就说明有注入点</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=1asdubgasi</span><br></pre></td></tr></table></figure><p>但是，对于字符型的注入这个方法不行，MySQL独特机制，会把输入的1后边的无用数据自动过滤</p><h2 id="模糊查询注入点"><a href="#模糊查询注入点" class="headerlink" title="模糊查询注入点"></a>模糊查询注入点</h2><p>这是一类特殊的注入类型，这类注入主要是进行数据搜索时没过滤搜索参数</p><p>一般在连接地址有’key&#x3D;关键字’，或者直接通过搜索框进行提交，后台语句为：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from 表名 where 字段名 like &#x27;%关键字%&#x27;</span><br></pre></td></tr></table></figure><p>注入原理还是一样的，只是需要拼接的符号变多了</p><p>以pikachu靶场为例，安装教程请见：<a href="https://blog.yunkun.top/archives/141bca4c.html">https://blog.yunkun.top/archives/141bca4c.html</a></p><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426161752639.png"></p><p>后台语句为</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select username,id,email from member where username like &#x27;%$name%&#x27;</span><br></pre></td></tr></table></figure><p>在搜索框输入拼接语句，点击搜索</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y%&#x27; or 1=1 #</span><br></pre></td></tr></table></figure><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426162736841.png"></p><p>后台语句会变成</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select username,id,email from member where username like &#x27;%y%&#x27; or 1=1 #%&#x27;</span><br></pre></td></tr></table></figure><p><strong><font color='Red'>拼接 and 1&#x3D;1 和 or 1&#x3D;1 的区别就留给各位自行探索啦</font></strong></p><h2 id="xx型注入点"><a href="#xx型注入点" class="headerlink" title="xx型注入点"></a>xx型注入点</h2><p>xx型指SQL语句拼接的方式不同，如：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from member where username=(‘$username’) ；</span><br></pre></td></tr></table></figure><p>本质不变，就是进行符号拼接，只是后台程序员加了些乱七八糟的东西，如：’  “  %  )  {</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>无论什么类型的注入点，都是能进行注入攻击的，关键是判断注入点类型</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1、拼接半个引号，单引号双引号都试试，只要报错了，就说明引号被传递后台了，存在注入点</span><br><span class="line"></span><br><span class="line">2、判断注入点类型，构建SQL注入语句</span><br><span class="line">  </span><br><span class="line">  2.1、?id=1 and 1=1 和 ?id=1 and 1=2 有区别就是数字型，没有就是字符型</span><br><span class="line"></span><br><span class="line">  2.2、字符型就换语句 ?id=1&#x27; and 1=1 和 ?id=1&quot; and 1=1 看报错，判断SQL语句闭合符号</span><br><span class="line"></span><br><span class="line">  2.3、如果都报错，可能是模糊查询或xx型的了，有报错信息就看页面报错回显的SQL语句，没有报错回显，后续也会讲到新的办法</span><br><span class="line"></span><br><span class="line">3、根据注入点进行数据库信息收集</span><br></pre></td></tr></table></figure><p><font color='Red'>像是引号，%这些对于有防护的网站都会被过滤掉，后续也会讲到绕过防护的方法</font></p><h1 id="Sql注入的数据提交方式"><a href="#Sql注入的数据提交方式" class="headerlink" title="Sql注入的数据提交方式"></a>Sql注入的数据提交方式</h1><h2 id="GET提交"><a href="#GET提交" class="headerlink" title="GET提交"></a>GET提交</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web安全·Sql注入渗透与攻防 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络安全·Web安全 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>综合靶场安装教程</title>
       <link href="/archives/141bca4c.html"/>
       <url>/archives/141bca4c.html</url>

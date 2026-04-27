@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>博客说明</title>
+      <link href="/archives/4a17b156.html"/>
+      <url>/archives/4a17b156.html</url>
+      
+        <content type="html"><![CDATA[<hr><p><strong><font color='Blue'>欢迎访问本博客！</font></strong></p><p>本站点为个人纯学习向技术博客，主要用于记录个人学习笔记、技术复盘、原理探究与实操总结，全程仅作个人知识沉淀与技术交流使用。</p><h1 id="内容方向规划"><a href="#内容方向规划" class="headerlink" title="内容方向规划"></a>内容方向规划</h1><p>核心内容：Python 编程学习、网络安全攻击与防御</p><p>主攻方向：网络安全原理、Web安全、渗透测试理论、漏洞原理分析、安全防御思路、安全武器开发等技术研究</p><p>后续拓展：会根据学习进度，陆续补充计算机基础、前后端开发、新兴AI安全等其他技术模块，内容长期更新、持续沉淀</p><h1 id="网络安全内容郑重声明"><a href="#网络安全内容郑重声明" class="headerlink" title="网络安全内容郑重声明"></a>网络安全内容郑重声明</h1><p>本博客所有网络安全相关文章、代码、原理教程、实操思路，仅限合法合规的安全学习、个人研究、授权范围内的安全测试使用</p><p>文中涉及的各类漏洞原理、探测思路、安全工具用法，仅用于帮助读者理解网络攻防逻辑、提升安全防御意识、学习安全加固方案</p><p>严禁任何人将本站内容用于未授权扫描、非法入侵、越权攻击、恶意破坏、数据窃取、黑产牟利等一切违反法律与网络安全规范的行为</p><p>未经目标资产官方书面授权，禁止私自对公网服务器、网站、第三方设备进行探测、渗透、攻击等操作</p><h1 id="责任划分"><a href="#责任划分" class="headerlink" title="责任划分"></a>责任划分</h1><p>凡利用本博客公开内容进行非法操作、违法测试所产生的一切后果，由操作者本人自行承担全部法律责任，与本博客作者无关</p><p>坚决遵守《网络安全法》《数据安全法》等相关法律法规，恪守网络安全底线，抵制一切网络违法行为</p><p>倡导白帽安全思维，以防御视角学习安全知识，共同维护健康的网络环境</p><h1 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h1><p>记录学习，沉淀技术，深耕编程与安全领域</p><p>所有内容均为个人学习总结，仅供交流参考，如有错误欢迎理性指正、友好交流</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 博客说明 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 博客说明 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>浏览器常用插件合集</title>
       <link href="/archives/9508da4a.html"/>
       <url>/archives/9508da4a.html</url>
@@ -248,19 +273,6 @@
             <tag> 公考·行测·判断 </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="/archives/4a17b156.html"/>
-      <url>/archives/4a17b156.html</url>
-      
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-      
-      
       
     </entry>
     

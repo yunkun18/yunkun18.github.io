@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yunkun.top/archives/5c2ef424.html</loc>
+    
+    <lastmod>2026-05-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.yunkun.top/archives/667bd3bf.html</loc>
     
     <lastmod>2026-05-08</lastmod>
@@ -251,6 +260,13 @@
   
   <url>
     <loc>https://blog.yunkun.top/categories/Web%E5%AE%89%E5%85%A8%C2%B7Sql%E6%B3%A8%E5%85%A5%E6%B8%97%E9%80%8F%E4%B8%8E%E6%94%BB%E9%98%B2/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yunkun.top/categories/Web%E5%AE%89%E5%85%A8%C2%B7XXE%E6%B8%97%E9%80%8F%E4%B8%8E%E9%98%B2%E5%BE%A1/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
